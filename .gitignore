@@ -1,0 +1,20 @@
+# Python virtual environment
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints/
+
+# Raw bulk downloads (>100MB, cannot be pushed to GitHub)
+variant_summary.txt.gz
+*.gz
+*.tar
+*.zip
+
+# Temporary data and system files
+.DS_Store
+Thumbs.db
+*.log

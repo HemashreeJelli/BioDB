@@ -1,0 +1,139 @@
+=== MERGE & SKEW SANITY CHECKS ===
+
+Core usable rows (input):       3,834
+Merged rows (output):           3,834
+Unique rsIDs (input):           2,506
+Unique rsIDs (merged):          2,506
+
+--- gnomAD Coverage ---
+in_gnomad = True:               3,834 (100.0%)
+in_gnomad = False:              0 (0.0%)
+
+--- ClinVar Coverage ---
+in_clinvar = True:              1,850 (48.3%)
+in_clinvar = False:             1,984 (51.7%)
+
+--- Allele Selection Method ---
+  single_alt                               2,707
+  effect_allele_match                      720
+  highest_ac_fallback                      407
+
+--- Skew Assessability ---
+skew_assessable = True:         3,497
+skew_assessable = False:        337
+
+--- Not Assessable Reasons ---
+  nan                                                     3,497
+  max_AF 0.0000 < 0.01 threshold                          155
+  max_AF 0.0001 < 0.01 threshold                          51
+  max_AF 0.0002 < 0.01 threshold                          20
+  max_AF 0.0005 < 0.01 threshold                          14
+  max_AF 0.0004 < 0.01 threshold                          8
+  max_AF 0.0003 < 0.01 threshold                          7
+  max_AF 0.0008 < 0.01 threshold                          6
+  max_AF 0.0007 < 0.01 threshold                          6
+  max_AF 0.0017 < 0.01 threshold                          5
+  max_AF 0.0021 < 0.01 threshold                          4
+  max_AF 0.0042 < 0.01 threshold                          4
+  max_AF 0.0048 < 0.01 threshold                          4
+  max_AF 0.0073 < 0.01 threshold                          3
+  max_AF 0.0031 < 0.01 threshold                          3
+  max_AF 0.0016 < 0.01 threshold                          3
+  max_AF 0.0022 < 0.01 threshold                          3
+  max_AF 0.0039 < 0.01 threshold                          3
+  max_AF 0.0006 < 0.01 threshold                          3
+  max_AF 0.0064 < 0.01 threshold                          3
+  max_AF 0.0024 < 0.01 threshold                          2
+  max_AF 0.0049 < 0.01 threshold                          2
+  max_AF 0.0051 < 0.01 threshold                          2
+  max_AF 0.0097 < 0.01 threshold                          2
+  max_AF 0.0009 < 0.01 threshold                          2
+  max_AF 0.0019 < 0.01 threshold                          2
+  max_AF 0.0034 < 0.01 threshold                          1
+  max_AF 0.0038 < 0.01 threshold                          1
+  max_AF 0.0025 < 0.01 threshold                          1
+  max_AF 0.0047 < 0.01 threshold                          1
+  max_AF 0.0028 < 0.01 threshold                          1
+  max_AF 0.0076 < 0.01 threshold                          1
+  max_AF 0.0013 < 0.01 threshold                          1
+  max_AF 0.0066 < 0.01 threshold                          1
+  max_AF 0.0096 < 0.01 threshold                          1
+  max_AF 0.0100 < 0.01 threshold                          1
+  max_AF 0.0056 < 0.01 threshold                          1
+  max_AF 0.0027 < 0.01 threshold                          1
+  max_AF 0.0071 < 0.01 threshold                          1
+  max_AF 0.0020 < 0.01 threshold                          1
+  max_AF 0.0032 < 0.01 threshold                          1
+  max_AF 0.0077 < 0.01 threshold                          1
+  max_AF 0.0010 < 0.01 threshold                          1
+  max_AF 0.0086 < 0.01 threshold                          1
+  max_AF 0.0095 < 0.01 threshold                          1
+  max_AF 0.0012 < 0.01 threshold                          1
+
+--- Skew Flags (assessable rows only) ---
+  3x flag:  1,466  (41.9% of assessable)
+  5x flag:  913  (26.1% of assessable)
+  10x flag: 515  (14.7% of assessable)
+
+--- Zero min_AF flags (where max_AF >= 1%) ---
+  zero_min_af_flag = True: 370
+
+--- AF Range Check (all values should be 0-1) ---
+  AFR: bad AF values = 0
+  AMR: bad AF values = 0
+  EAS: bad AF values = 0
+  NFE: bad AF values = 0
+  SAS: bad AF values = 0
+
+--- Top max_pop (population with highest AF) ---
+max_pop
+AFR    1079
+EAS    1009
+NFE     942
+SAS     460
+AMR     344
+
+--- Top min_pop (population with lowest AF) ---
+min_pop
+AFR    1299
+EAS    1225
+NFE     638
+SAS     389
+AMR     283
+
+--- disparity_ratio distribution (assessable, non-zero-min) ---
+  n values:   3,424
+  min ratio:  1.039
+  median:     2.620
+  95th pct:   247.288
+  max ratio:  8976.993
+
+--- Top 10 highest-ratio variants (spot-check these) ---
+      rsID                                                     Gene                                  Drug(s) Phenotype Category max_pop   max_AF min_pop   min_AF  disparity_ratio
+rs28898617 UGT1A10;UGT1A3;UGT1A4;UGT1A5;UGT1A6;UGT1A7;UGT1A8;UGT1A9                            valproic acid      Metabolism/PK     EAS 0.045649     NFE 0.000005      8976.993138
+rs12721646                                                   CYP2B6                               nevirapine              Other     AFR 0.174660     EAS 0.000022      7830.337836
+ rs8110364                                                   PIK3R2 cyclophosphamide;epirubicin;fluorouracil           Toxicity     AFR 0.208214     EAS 0.000027      7603.135335
+     rs671                                                    ALDH2                                  ethanol           Toxicity     EAS 0.243642     NFE 0.000036      6828.380486
+     rs671                                                    ALDH2                             acetaldehyde      Metabolism/PK     EAS 0.243642     NFE 0.000036      6828.380486
+     rs671                                                    ALDH2                               naltrexone           Efficacy     EAS 0.243642     NFE 0.000036      6828.380486
+     rs671                                                    ALDH2                                   heroin              Other     EAS 0.243642     NFE 0.000036      6828.380486
+ rs1799972                                                    OPRM1                 cocaine;ethanol;nicotine           Toxicity     AFR 0.224115     EAS 0.000067      3347.536826
+ rs1799972                                                    OPRM1                                  opioids           Toxicity     AFR 0.224115     EAS 0.000067      3347.536826
+ rs2066702                                                    ADH1B                               naltrexone           Efficacy     AFR 0.192056     EAS 0.000089      2153.806961
+
+--- ClinVar star distribution among matched rows ---
+clinvar_max_stars
+0.0    237
+1.0    276
+2.0    937
+3.0    374
+4.0     26
+
+--- pharmgkb_evidence_level distribution ---
+pharmgkb_evidence_level
+3     3469
+4      191
+1A     138
+2A      16
+2B      15
+1B       5
