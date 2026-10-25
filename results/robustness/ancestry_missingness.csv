@@ -1,0 +1,5 @@
+stratum,rsids,with_ancestry,pct_covered
+high skew / high evidence,30,27,90.0
+high skew / low evidence,762,531,69.7
+low skew / high evidence,19,19,100.0
+low skew / low evidence,1431,1083,75.7

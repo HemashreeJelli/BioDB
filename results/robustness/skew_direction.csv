@@ -1,0 +1,6 @@
+group_pgkb,AFR,AMR,EAS,NFE,SAS
+Group 1: High Skew / High Evidence,11,0,15,16,3
+Group 2: High Skew / Low Evidence,340,54,290,363,131
+Group 3: Low Skew / High Evidence,3,6,4,12,7
+Group 4: Low Skew / Low Evidence,549,212,528,520,429
+Group X: Not Assessable,63,48,49,145,36

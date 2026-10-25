@@ -1,0 +1,107 @@
+=== CONFOUNDER CONTROLS FOR THE ANCESTRY ANALYSIS ===
+
+studies joined: 20,480   rsIDs: 2,535
+rsIDs with usable ancestry data: 1,660
+
+--- 1. Mismatch rate by number of published cohorts ---
+cohort_bin  rsids  pct_excluding_peak
+         1    462                69.5
+         2    267                66.3
+       3-5    419                62.8
+      6-10    203                52.7
+     11-30    220                33.6
+       >30     89                20.2
+
+  Median cohorts per stratum:
+    high skew / high evidence              32
+    high skew / low evidence                3
+    low skew / high evidence               53
+    low skew / low evidence                 3
+
+  Mismatch falls monotonically as cohort count rises, and the two strata
+  differ ~10-fold in cohort count, so the headline contrast is confounded.
+
+--- 2. Permutation null (1,000 draws) ---
+  Global cohort-population marginals (share of rsIDs covering each):
+    NFE: 45.9%
+    EAS: 33.4%
+    AFR: 10.7%
+    SAS: 5.5%
+    AMR: 4.5%
+
+                  stratum  n_rsids  observed_pct_excluding  null_expected_pct  observed_minus_null
+high skew / high evidence       27                     3.7               32.5                -28.8
+ high skew / low evidence      531                    45.4               64.1                -18.7
+ low skew / high evidence       19                    31.6               26.5                  5.1
+  low skew / low evidence     1083                    65.7               67.5                 -1.8
+
+  A difference near zero means cohort scarcity and the overall skew of
+  the literature already explain the mismatch, with no ancestry-specific
+  effect left over.
+
+--- 3. Logistic regression of mismatch ---
+  Model: skew + evidence only  (n = 1,660)
+    intercept            OR =    1.934  95% CI [1.706, 2.192]   p = 5.9e-25  *
+    high_skew_i          OR =    0.424  95% CI [0.343, 0.523]   p = 1.26e-15  *
+    high_ev_i            OR =    0.144  95% CI [0.064, 0.328]   p = 3.78e-06  *
+
+  Model: + cohort count  (n = 1,660)
+    intercept            OR =    5.347  95% CI [4.204, 6.800]   p = 1.58e-42  *
+    high_skew_i          OR =    0.406  95% CI [0.326, 0.505]   p = 6.18e-16  *
+    high_ev_i            OR =    0.508  95% CI [0.212, 1.216]   p = 0.128
+    log_cohorts          OR =    0.531  95% CI [0.470, 0.602]   p = 1.58e-23  *
+
+  Model: full model  (n = 1,660)
+    intercept            OR =    3.777  95% CI [2.340, 6.097]   p = 5.37e-08  *
+    high_skew_i          OR =    0.399  95% CI [0.321, 0.498]   p = 2.9e-16  *
+    high_ev_i            OR =    0.515  95% CI [0.215, 1.232]   p = 0.136
+    log_cohorts          OR =    0.486  95% CI [0.412, 0.574]   p = 1.11e-17  *
+    log_participants     OR =    1.073  95% CI [0.988, 1.166]   p = 0.0951
+    year_c               OR =    1.007  95% CI [0.905, 1.121]   p = 0.893
+
+  High-evidence rsIDs in the model: 46 of 1,660. The evidence-tier
+  coefficient is therefore poorly powered: a wide CI spanning 1 means
+  'no detectable effect', not 'no effect'.
+
+  Read the coefficient on high_skew_i in the full model: if it loses
+  significance once cohort count is included, the ancestry contrast is
+  explained by how much literature exists, not by skew.
+
+--- 4. Participant-weighted match (peak needs >=10% of participants) ---
+                  stratum  rsids  pct_excl_binary  pct_excl_weighted
+high skew / high evidence     27              3.7               22.2
+ high skew / low evidence    531             45.4               48.4
+ low skew / high evidence     19             31.6               68.4
+  low skew / low evidence   1083             65.7               69.0
+
+  NOTE: participant counts are missing or zero for many annotations, so
+  the weighted figure is an upper bound on exclusion.
+
+--- 5. Is ancestry coverage itself related to skew and evidence? ---
+                  stratum  rsids  with_ancestry  pct_covered
+high skew / high evidence     30             27         90.0
+ high skew / low evidence    762            531         69.7
+ low skew / high evidence     19             19        100.0
+  low skew / low evidence   1431           1083         75.7
+
+  Coverage is NOT missing at random: the stratum carrying the headline
+  claim is the least well covered, so its mismatch rate rests on a
+  non-random subset.
+
+--- 6. rsIDs classified into BOTH Group 1 and Group 2 ---
+  rsIDs in both Group 1 and Group 2: 13
+    rs1127354, rs116855232, rs12979860, rs16969968, rs2231142, rs2242480, rs4646437, rs4961, rs671, rs71647871, rs7270101, rs7294, rs9934438
+  Group 2 rows belonging to those rsIDs: 63 (5.3% of Group 2)
+  Group 2 rsIDs that are high-evidence elsewhere: 13 of 775 (1.7%)
+
+  For these variants the frequency data are identical across groups and
+  only the drug differs, so the gap is drug-phenotype curation rather
+  than a variant nobody has studied.
+
+--- 7. Group X exclusion asymmetry in the baseline test ---
+evidence_tier  rows_total  rows_assessable  rows_group_x  pct_excluded
+         high         183               77           106          57.9
+          low        3651             3416           235           6.4
+
+  The baseline Fisher test therefore compares the common, assessable
+  minority of high-evidence rows against nearly all low-evidence rows.

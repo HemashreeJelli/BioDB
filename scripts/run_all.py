@@ -1,8 +1,15 @@
 """
-run_all.py -- run the whole pipeline in order (steps 01-09).
+run_all.py -- run the whole pipeline in order (steps 01-10).
 
 Usage:  python scripts/run_all.py
         python scripts/run_all.py --from 07     (start from a given step)
+
+Steps are discovered by globbing NN_*.py, so adding a new numbered script
+makes it part of the run automatically.
+
+Steps 01-09 build the classified table. Step 10 is read-only: it recomputes
+the headline numbers under alternative assumptions and writes to
+results/robustness/, leaving data_clean/ and results/*.csv untouched.
 
 Stops at the first step that fails. Step 02 only calls the gnomAD API for
 rsIDs/variants not already saved, so with complete files it finishes quickly.

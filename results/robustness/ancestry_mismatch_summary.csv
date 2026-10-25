@@ -1,0 +1,5 @@
+stratum,evidence_includes_peak_population,evidence_excludes_peak_population,pct_excluding_peak
+high skew / high evidence,26,1,3.7
+high skew / low evidence,290,241,45.4
+low skew / high evidence,13,6,31.6
+low skew / low evidence,371,712,65.7

@@ -1,0 +1,5 @@
+stratum,rsids,pct_excl_binary,pct_excl_weighted
+high skew / high evidence,27,3.7,22.2
+high skew / low evidence,531,45.4,48.4
+low skew / high evidence,19,31.6,68.4
+low skew / low evidence,1083,65.7,69.0

@@ -1,0 +1,5 @@
+arm,rows,group2_rows,group2_pct,note
+primary (as published),3834,1178,30.7,
+excluding highest-AC fallback rows,3490,1039,29.8,allele assignment check
+requiring AC > 10 in low population,3607,965,26.8,ratio fragility check
+requiring CI-based ratio >= 5x,3517,866,24.6,sampling-noise check

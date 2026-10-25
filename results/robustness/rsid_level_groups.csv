@@ -1,0 +1,7 @@
+skew,tier,unique_rsids,pct_of_rsids
+high,high,30,1.2
+high,low,762,30.4
+low,high,19,0.8
+low,low,1431,57.1
+not_assessable,high,86,3.4
+not_assessable,low,178,7.1

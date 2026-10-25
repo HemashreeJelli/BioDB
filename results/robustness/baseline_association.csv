@@ -1,0 +1,3 @@
+unit,high_ev_highskew,high_ev_total,high_ev_pct,low_ev_highskew,low_ev_total,low_ev_pct,odds_ratio,p_value
+rsID x gene x drug rows,45,77,58.4,1178,3416,34.5,2.672,2.8527416157576434e-05
+unique rsIDs,30,49,61.2,762,2193,34.7,2.965,0.000219546020298178

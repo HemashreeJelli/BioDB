@@ -1,0 +1,118 @@
+=== ROBUSTNESS & BASELINE ANALYSES ===
+
+Loaded final_table: 3,834 rows, 2,506 unique rsIDs
+Assessable rows: 3,493
+
+--- 1. Baseline association: skew rate within evidence tier ---
+  Unit: rsID x gene x drug rows
+    High evidence:    45 /    77 high-skew  (58.4%)
+    Low evidence:   1178 /  3416 high-skew  (34.5%)
+    Fisher's exact: OR = 2.67, p = 2.85e-05
+  Unit: unique rsIDs
+    High evidence:    30 /    49 high-skew  (61.2%)
+    Low evidence:    762 /  2193 high-skew  (34.7%)
+    Fisher's exact: OR = 2.97, p = 0.00022
+  NOTE: high-evidence variants are MORE often skewed, so a raw count of
+        high-skew/low-evidence rows cannot by itself show neglect.
+
+--- 2. Absolute AF difference by group ---
+                                     count     25%     50%     75%     max
+group_pgkb                                                                
+Group 1: High Skew / High Evidence    45.0  0.0219  0.1243  0.5362  0.8053
+Group 2: High Skew / Low Evidence   1178.0  0.1238  0.2714  0.4128  0.8053
+Group 3: Low Skew / High Evidence     32.0  0.1216  0.1883  0.2282  0.7132
+Group 4: Low Skew / Low Evidence    2238.0  0.1637  0.2439  0.3429  0.7097
+
+--- 3. Allele counts in the low-frequency population (high-skew rows) ---
+  AC >   0:  1154 of 1,223 retained (94.4%)
+  AC >   1:  1126 of 1,223 retained (92.1%)
+  AC >   5:  1038 of 1,223 retained (84.9%)
+  AC >  10:   996 of 1,223 retained (81.4%)
+  AC >  20:   942 of 1,223 retained (77.0%)
+  AC >  50:   885 of 1,223 retained (72.4%)
+  AC > 100:   858 of 1,223 retained (70.2%)
+  median AC in low population: 1,048
+  ratio > 1000 AND AC <= 10:   23
+
+--- 4. Detection floor and conservative (CI-based) ratios ---
+  high-skew rows whose min AF is < 5x its detection floor: 189 (15.5%)
+  high-skew rows still >= 5x using CI bounds: 906 of 1,223 (74.1%)
+  median conservative ratio: 8.2 (median point estimate: 10.6)
+
+--- 5. Group 2 share under each robustness arm ---
+  primary (as published)                      1178 / 3834   (30.7%)  
+  excluding highest-AC fallback rows          1039 / 3490   (29.8%)  allele assignment check
+  requiring AC > 10 in low population          965 / 3607   (26.8%)  ratio fragility check
+  requiring CI-based ratio >= 5x               866 / 3517   (24.6%)  sampling-noise check
+
+--- 6. Downsampling to a common AN of 30,000 (200 replicates) ---
+  originally high-skew rows:                 1,223
+  still high-skew in >=95% of replicates:    788
+  lost under equal sample sizes:             435
+  newly high-skew (was low):                 5
+  preservation rate:                         64.4%
+  Downsample-induced zeros are treated as censored, not as absence; the
+  arm therefore measures only skew that survives equal sampling depth.
+
+--- 7. Groups counted once per rsID ---
+          skew tier  unique_rsids  pct_of_rsids
+          high high            30           1.2
+          high  low           762          30.4
+           low high            19           0.8
+           low  low          1431          57.1
+not_assessable high            86           3.4
+not_assessable  low           178           7.1
+  total rsIDs: 2,506
+
+--- 8. Direction of skew: population carrying the HIGH frequency ---
+max_pop                             AFR  AMR  EAS  NFE  SAS
+group_pgkb                                                 
+Group 1: High Skew / High Evidence   11    0   15   16    3
+Group 2: High Skew / Low Evidence   340   54  290  363  131
+Group 3: Low Skew / High Evidence     3    6    4   12    7
+Group 4: Low Skew / Low Evidence    549  212  528  520  429
+Group X: Not Assessable              63   48   49  145   36
+
+  Median allele number per population (sampling asymmetry):
+    AFR:     60,571
+    AMR:     42,577
+    EAS:     35,185
+    NFE:    875,590
+    SAS:     64,637
+
+--- 9. Evidence ancestry vs. population carrying the high frequency ---
+  studies joined to an rsID: 20,480 (2,535 rsIDs)
+
+  Does the supporting evidence include the population where the allele peaks?
+    evidence_excludes_peak_population          960 (42.8%)
+    evidence_includes_peak_population          700 (31.2%)
+    no_ancestry_data                           582 (26.0%)
+
+  Broken down by skew and evidence tier (rsIDs with ancestry data):
+ancestry_match             evidence_includes_peak_population  evidence_excludes_peak_population  pct_excluding_peak
+stratum                                                                                                            
+high skew / high evidence                                 26                                  1                 3.7
+high skew / low evidence                                 290                                241                45.4
+low skew / high evidence                                  13                                  6                31.6
+low skew / low evidence                                  371                                712                65.7
+
+  Peak population of rsIDs whose evidence EXCLUDES that population:
+max_pop
+AFR    350
+SAS    210
+EAS    175
+AMR    117
+NFE    108
+
+  Dominant study population, high-skew rsIDs:
+dominant_study_pop
+NFE    329
+EAS    168
+AFR     47
+SAS     11
+AMR      3
+
+  CAVEAT: 'Multiple groups' and 'Unknown' labels carry no usable single
+  population, and PharmGKB's biogeographical labels are coarser than
+  gnomAD's genetic ancestry groups. Near Eastern and Oceanian studies are
+  left unmapped because neither has a gnomAD primary-population analogue.

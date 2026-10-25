@@ -1,0 +1,5 @@
+group_pgkb,count,25%,50%,75%,max
+Group 1: High Skew / High Evidence,45.0,0.0219,0.1243,0.5362,0.8053
+Group 2: High Skew / Low Evidence,1178.0,0.1238,0.2714,0.4128,0.8053
+Group 3: Low Skew / High Evidence,32.0,0.1216,0.1883,0.2282,0.7132
+Group 4: Low Skew / Low Evidence,2238.0,0.1637,0.2439,0.3429,0.7097

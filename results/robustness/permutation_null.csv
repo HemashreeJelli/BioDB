@@ -1,0 +1,5 @@
+stratum,n_rsids,observed_pct_excluding,null_expected_pct,observed_minus_null
+high skew / high evidence,27,3.7,32.5,-28.8
+high skew / low evidence,531,45.4,64.1,-18.7
+low skew / high evidence,19,31.6,26.5,5.1
+low skew / low evidence,1083,65.7,67.5,-1.8

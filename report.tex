@@ -1,0 +1,793 @@
+% ============================================================================
+%  Pharmacogenomic Variant Frequency Mapping Across Global Populations
+%  IEEE Conference Format (Methods & Resource Paper)
+% ============================================================================
+\documentclass[conference]{IEEEtran}
+
+% ── Packages ────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{balance}
+\usepackage{textcomp}
+
+% ── Hyperref setup ──────────────────────────────────────────────────────────
+\definecolor{linkblue}{RGB}{0,0,0}
+\definecolor{citeblue}{RGB}{0,0,0}
+\definecolor{urlblue}{RGB}{0,0,128}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    citecolor=citeblue,
+    urlcolor=urlblue,
+    pdftitle={Pharmacogenomic Variant Frequency Mapping Across Global Populations},
+    pdfauthor={Hemashree Jelli}
+}
+
+% ── Custom colours for group labels ─────────────────────────────────────────
+\definecolor{group1}{HTML}{2E7D32}
+\definecolor{group2}{HTML}{C62828}
+\definecolor{group3}{HTML}{1565C0}
+\definecolor{group4}{HTML}{6A6A6A}
+\definecolor{groupX}{HTML}{9E9E9E}
+
+% ============================================================================
+\begin{document}
+
+% ── Title ───────────────────────────────────────────────────────────────────
+\title{Pharmacogenomic Variant Frequency Mapping\\Across Global Populations}
+
+\author{
+\IEEEauthorblockN{Hemashree Jelli}
+\IEEEauthorblockA{
+October 2026\\
+\url{https://github.com/HemashreeJelli/BioDB}
+}
+}
+
+\maketitle
+
+% ── Abstract ────────────────────────────────────────────────────────────────
+\begin{abstract}
+Genetic polymorphisms can profoundly influence drug metabolism, dosing requirements, efficacy, and toxicity risk. While population genetics studies frequently highlight allele frequency differences between ancestry groups, a frequency disparity alone does not prove that a variant is clinically actionable or well-supported by evidence.
+This paper presents a reproducible computational pipeline that audits \textbf{3,834 usable variant--gene--drug relationships} (2,506 unique rsIDs) by cross-referencing population allele frequency disparities from the Genome Aggregation Database (gnomAD~v4) with pharmacogenomic evidence strength from PharmGKB and clinical assertion strength from ClinVar.
+Variants are classified into a four-group framework based on population frequency skew ($\ge 5\times$) and evidence tier (PharmGKB levels~1A--2B vs.\ 3--4).
+The central finding is that \textbf{1,178 relationships (30.7\%, spanning 775 unique rsIDs; 762 rsIDs [30.4\%] when deduplicated at the variant level)} fall into the ``Headline Evidence-Gap'' group (Group~2)---large inter-population frequency skew supported only by preliminary or low-tier evidence.
+Robustness analyses indicate that Group~2's median absolute allele frequency difference ($\Delta\text{AF} = 0.271$) is comparable to low-skew variants ($\Delta\text{AF} = 0.244$), survives conservative Wilson-score confidence interval filtering (24.6\% share), and exhibits 64.4\% preservation under binomial downsampling to equal sample sizes ($\text{AN} = 30{,}000$).
+While the share of rsIDs with $\ge 1$ published cohort is heavily skewed toward European and East Asian ancestries (NFE 46.0\%, EAS 33.2\%, AFR 10.8\%, SAS 5.6\%, AMR 4.5\%), cohort count is the dominant predictor of literature coverage, and under a frequency-weighted coverage metric high-skew variants are less well covered by their evidence base (OR 1.9), while a binary peak-population metric reverses this sign.
+\end{abstract}
+
+\begin{IEEEkeywords}
+pharmacogenomics, allele frequency disparity, gnomAD, PharmGKB, ClinVar, population genetics, precision medicine, robustness analysis
+\end{IEEEkeywords}
+
+% ============================================================================
+\section{Introduction}
+% ============================================================================
+
+Pharmacogenomics---the study of how genetic variation affects drug response---is increasingly integrated into clinical practice through initiatives such as the Clinical Pharmacogenetics Implementation Consortium (CPIC)~\cite{cpic} and the Dutch Pharmacogenetics Working Group (DPWG).
+However, much of the foundational pharmacogenomic evidence has historically been developed in cohorts of European descent, raising persistent concerns regarding the global generalizability of dosing guidelines~\cite{roden2019, popejoy2016, sirugo2019}.
+
+A variant that is rare in one ancestral group but common in another may hold substantial clinical relevance for the population in which it is frequent, yet receive limited experimental validation if that population is under-represented in clinical trials.
+Conversely, a large allele frequency disparity does not, by itself, demonstrate differential drug response.
+
+This project systematically audits the intersection of two orthogonal dimensions:
+\begin{enumerate}
+    \item \textbf{Population frequency disparity:} quantified across five major gnomAD population groups (AFR, AMR, EAS, NFE, SAS).
+    \item \textbf{Pharmacogenomic evidence strength:} assessed via PharmGKB evidence levels (1A--4) and supplemented by ClinVar clinical assertion star ratings (0--4).
+\end{enumerate}
+
+The goal of this resource and methods audit is not to declare any variant clinically actionable, but rather to systematically delineate the \emph{evidence gap}: loci with large population-specific frequency skews that are supported only by preliminary, unverified, or missing pharmacogenomic evidence.
+
+% ============================================================================
+\section{Related Work}
+% ============================================================================
+
+Disparities in ancestral representation across human genetics and genome-wide association studies (GWAS) have been extensively documented~\cite{popejoy2016, sirugo2019, martin2019, wojcik2019}.
+Historically, over 80\% of participants in genomic discovery cohorts have been of European descent, leading to unequal predictive accuracy for polygenic scores and clinical risk prediction across diverse ancestry groups~\cite{martin2019, gurdasani2019}.
+
+In pharmacogenomics specifically, population-scale sequencing and biobank analyses have established that medically actionable variant frequencies vary dramatically across global lineages~\cite{mcinnes2021, zhou2017}.
+Efforts by CPIC~\cite{cpic} and PharmGKB~\cite{pharmgkb} systematically curate clinical evidence, yet translating these findings globally requires empirical accounting of both frequency disparities and publication ascertainment.
+Prior audits have largely focused on well-characterized star alleles in cytochrome P450 genes; this work extends descriptive auditing to the broader universe of single-nucleotide pharmacogenomic loci across gnomAD~v4, PharmGKB, and ClinVar.
+
+% ============================================================================
+\section{Data Sources}
+% ============================================================================
+
+Three public resources were cross-referenced in this audit:
+
+\begin{itemize}
+    \item \textbf{PharmGKB / ClinPGx}~\cite{pharmgkb} (created 2026-10-05): Summary annotations detailing evidence levels, genes, drugs, and phenotypes; variant annotations with allele-level study data; and study parameters (\texttt{study\_parameters.tsv}) capturing biogeographical ancestries across 20,480 literature annotations.
+    \item \textbf{gnomAD~v4}~\cite{gnomad} (\texttt{gnomad\_r4}, joint exomes + genomes): Allele counts (AC), allele numbers (AN), and allele frequencies (AF) for AFR, AMR, EAS, NFE, SAS, FIN, and MID populations, queried via the GraphQL API.
+    \item \textbf{ClinVar}~\cite{clinvar} ($\sim$2026-10-12): \texttt{variant\_summary.txt.gz} (GRCh38), providing clinical significance, review status strings, and 0--4 star ratings.
+\end{itemize}
+
+% ============================================================================
+\section{Methods}
+% ============================================================================
+
+\subsection{Pipeline Architecture}
+
+The pipeline comprises twelve Python scripts (\texttt{01}--\texttt{12}) coordinated by \texttt{run\_all.py}.
+All intermediate outputs are persisted in \texttt{data\_clean/} and \texttt{results/}.
+
+\textbf{Step~1} (\texttt{01\_build\_core\_list.py}):
+Filter PharmGKB summary annotations to single-rsID, non-star-allele entries. When duplicate rsID--gene--drug rows exist, retain the entry with the strongest evidence level. Output: \textbf{2,604 unique rsIDs} (4,016 rows).
+
+\textbf{Step~2} (\texttt{02}--\texttt{06}):
+Query the gnomAD GraphQL API for per-population counts and frequencies. Align PharmGKB effect alleles to gnomAD ALT alleles using multiallelic and strand-complementation scoring. Retain only quality-resolved entries. Output: \textbf{3,834 usable rows} across 2,506 unique rsIDs.
+
+\textbf{Step~3} (\texttt{07\_process\_clinvar.py}):
+Parse ClinVar GRCh38 records, extract clinical classifications, map review status to 0--4 stars, and aggregate per rsID.
+
+\textbf{Step~4} (\texttt{08\_merge\_and\_skew.py}):
+Left-join PharmGKB, gnomAD, and ClinVar. Determine the effect allele (single ALT, matched effect allele, or highest-AC fallback).
+Compute the disparity ratio:
+\begin{equation}
+\text{disparity\_ratio} = \frac{\max(\text{AF})}{\min(\text{AF})}
+\end{equation}
+across five primary populations (AFR, AMR, EAS, NFE, SAS).
+When $\min(\text{AF}) = 0$, the ratio is undefined; if $\max(\text{AF}) \ge 1\%$, the row is flagged directly as high skew via \texttt{zero\_min\_af\_flag}.
+Skew is evaluated on the \emph{minor allele}: if the ALT allele has mean $\text{AF} > 0.5$, the REF side is evaluated instead.
+Variants with $\max(\text{AF}) < 1\%$ across all populations are set aside as not assessable (Group~X).
+
+\textbf{Step~5} (\texttt{09\_classify\_and\_report.py}):
+Assign rows to the four-group framework, evaluate ClinVar concordance, and run initial sensitivity checks.
+
+\textbf{Steps~6 \& 7} (\texttt{10\_robustness.py}, \texttt{11\_confounders.py}):
+Execute statistical sensitivity checks, absolute frequency differences ($\Delta\text{AF}$), ratio fragility audits, Wilson-score conservative ratios, binomial downsampling at uniform sample size, literature study ancestry mapping, permutation null tests, and initial multivariable logistic regressions.
+
+\textbf{Step~8} (\texttt{12\_coverage\_and\_clustering.py}):
+Evaluate continuous allele frequency coverage ratios against binary peak exclusions, recompute permutation null distributions under frequency coverage, and refit multivariable regression models with cluster-robust sandwich standard errors at gene-locus and primary-study levels.
+
+\subsection{Four-Group Classification Framework}
+\label{sec:framework}
+
+Relationships are classified along two orthogonal axes (Table~\ref{tab:framework}):
+\begin{itemize}
+    \item \textbf{Skew Axis ($5\times$ threshold):} \emph{High skew} if assessable and ($\text{ratio} \ge 5$ or \texttt{zero\_min\_af\_flag}); \emph{Low skew} if assessable and $\text{ratio} < 5$; \emph{Group X} if $\max(\text{AF}) < 1\%$.
+    \item \textbf{Evidence Axis (PharmGKB):} \emph{High evidence} for levels 1A, 1B, 2A, 2B; \emph{Low evidence} for levels 3, 4.
+\end{itemize}
+
+\begin{table}[!t]
+\centering
+\caption{Four-Group Classification Framework}
+\label{tab:framework}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|p{2.3cm}|}
+\hline
+\textbf{Group} & \textbf{Skew} & \textbf{PGKb} & \textbf{Interpretation} \\
+\hline
+\textcolor{group1}{Grp~1} & $\ge 5\times$ & High & Well-supported disparity \\
+\hline
+\textcolor{group2}{Grp~2} $\bigstar$ & $\ge 5\times$ & Low & \textbf{Headline gap} \\
+\hline
+\textcolor{group3}{Grp~3} & $< 5\times$ & High & Reliable, low skew \\
+\hline
+\textcolor{group4}{Grp~4} & $< 5\times$ & Low & Low skew baseline \\
+\hline
+\textcolor{groupX}{Grp~X} & N/A & Any & $\max(\text{AF}) < 1\%$ \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Results}
+% ============================================================================
+
+\subsection{Audit Scope and Group Counts}
+
+Among \textbf{3,834 usable relationships} (2,506 unique rsIDs), 100\% matched gnomAD and 48.3\% (1,850 rows) matched ClinVar.
+As shown in Table~\ref{tab:group-counts}, \textbf{Group~2 encompasses 1,178 relationships (30.7\%)} spanning \textbf{775 unique rsIDs}.
+When deduplicated strictly to one call per rsID (taking the strongest evidence tier and any high-skew flag), Group~2 accounts for \textbf{762 of 2,506 rsIDs (30.4\%)}, confirming that multiple annotations per variant do not inflate the group's proportion.
+
+\begin{table}[!t]
+\centering
+\caption{Distribution of Relationships and rsIDs Across Groups}
+\label{tab:group-counts}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Group} & \textbf{Rows} & \textbf{\% Rows} & \textbf{rsIDs} & \textbf{\% rsIDs} \\
+\hline
+\textcolor{group1}{Grp~1: High/High}  &     45 &  1.2 &    30 &  1.2 \\
+\hline
+\textcolor{group2}{Grp~2: High/Low}   &  1,178 & 30.7 &   762 & 30.4 \\
+\hline
+\textcolor{group3}{Grp~3: Low/High}   &     32 &  0.8 &    19 &  0.8 \\
+\hline
+\textcolor{group4}{Grp~4: Low/Low}    &  2,238 & 58.4 & 1,431 & 57.1 \\
+\hline
+\textcolor{groupX}{Grp~X: N/A}        &    341 &  8.9 &   264 & 10.5 \\
+\hline
+\textbf{Total}                         &  3,834 & 100  & 2,506 & 100  \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Top Genes, Drugs, and Skew Direction}
+
+Tables~\ref{tab:top-genes} and~\ref{tab:top-drugs} list top genes and drugs per quadrant.
+Table~\ref{tab:skew-dir} cross-tabulates groups against the population where allele frequency peaks.
+In Group~2, peak frequencies are well distributed across continental groups: NFE (363 rows), AFR (340 rows), EAS (290 rows), SAS (131 rows), and AMR (54 rows).
+
+\begin{table*}[!t]
+\centering
+\caption{Top Genes in Each Group, Ranked by Number of Unique rsIDs}
+\label{tab:top-genes}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|p{14cm}|}
+\hline
+\textbf{Group} & \textbf{Top Genes (rsIDs)} \\
+\hline
+\textcolor{group1}{Grp~1} & \textit{DPYD}~(9), \textit{VKORC1}~(4), \textit{CFTR}~(3), \textit{CYP3A4}~(2), \textit{ITPA}~(2), \textit{ADD1}~(1), \textit{ABCG2}~(1), \textit{CYP2B6}~(1), \textit{CHRNA5}~(1), \textit{CES1}~(1) \\
+\hline
+\textcolor{group2}{Grp~2} & \textit{OPRM1}~(14), \textit{PIK3R2}~(13), \textit{ABCB1}~(10), \textit{ABCG2}~(10), \textit{SLCO1B1}~(9), \textit{CYP2A6}~(8), \textit{VKORC1}~(8), \textit{TANC1}~(7), \textit{ABCC4}~(7), \textit{ZNF385D}~(7) \\
+\hline
+\textcolor{group3}{Grp~3} & \textit{IFNL3}~(2), \textit{VKORC1}~(2), \textit{ADRB2}~(1), \textit{CYP2B6}~(1), \textit{APOE}~(1), \textit{CYP4F2}~(1), \textit{DPYD}~(1), \textit{FCGR3A}~(1), \textit{ATIC}~(1), \textit{MTHFR}~(1) \\
+\hline
+\textcolor{group4}{Grp~4} & \textit{OPRM1}~(28), \textit{ANO2}~(18), \textit{ABCB1}~(18), \textit{DRD2}~(14), \textit{UGT2B7}~(13), \textit{VEGFA}~(12), \textit{NR1I2}~(12), \textit{CYP19A1}~(12), \textit{CYP2B6}~(12), \textit{OPRD1}~(11) \\
+\hline
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\centering
+\caption{Top Drugs in Each Group, Ranked by Number of Annotation Rows}
+\label{tab:top-drugs}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|p{14cm}|}
+\hline
+\textbf{Group} & \textbf{Top Drugs (rows)} \\
+\hline
+\textcolor{group1}{Grp~1} & Fluorouracil~(9), Capecitabine~(7), Warfarin~(4), Acenocoumarol~(2), Ivacaftor~(2), Phenprocoumon~(2), Tacrolimus~(2) \\
+\hline
+\textcolor{group2}{Grp~2} & Cyclophosphamide/Epirubicin/Fluorouracil~(32), Methotrexate~(24), Opioids~(22), Ethanol~(22), Warfarin~(21), Nicotine~(19), Tacrolimus~(17), Methadone~(17), Duloxetine~(16), Antipsychotics~(15) \\
+\hline
+\textcolor{group3}{Grp~3} & Warfarin~(3), Methotrexate~(3), Atorvastatin~(2), Efavirenz~(1), Fluvastatin~(1), Pravastatin~(1), Rosuvastatin~(1) \\
+\hline
+\textcolor{group4}{Grp~4} & Methotrexate~(56), Methadone~(55), Opioids~(46), Risperidone~(44), TNF-$\alpha$ inhibitors~(42), Nicotine~(41), Ethanol~(40), Aspirin~(38), Duloxetine~(37), Platinum compounds~(35) \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\centering
+\caption{Population Carrying the Maximum Frequency by Group}
+\label{tab:skew-dir}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r|r|}
+\hline
+\textbf{Group} & \textbf{AFR} & \textbf{AMR} & \textbf{EAS} & \textbf{NFE} & \textbf{SAS} \\
+\hline
+Grp~1 &  11 &   0 &  15 &  16 &   3 \\
+\hline
+Grp~2 & 340 &  54 & 290 & 363 & 131 \\
+\hline
+Grp~3 &   3 &   6 &   4 &  12 &   7 \\
+\hline
+Grp~4 & 549 & 212 & 528 & 520 & 429 \\
+\hline
+Grp~X &  63 &  48 &  49 & 145 &  36 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Disparity Ratio and Evidence Distributions}
+
+Among the 3,423 assessable rows with non-zero minimum AF: minimum ratio = 1.157; median = 3.348; 95th percentile = 290.364; and maximum = 8,976.99 (\texttt{rs28898617}).
+An additional 70 rows have zero minimum AF with $\max(\text{AF}) \ge 1\%$ (completing the $3{,}423 + 70 = 3{,}493$ assessable rows), representing variants common in one population but absent in another (the remaining 300 rows with zero minimum AF have $\max(\text{AF}) < 1\%$ and fall into Group~X).
+
+Table~\ref{tab:skew-flags} details skew flag distributions, while Table~\ref{tab:evidence} provides evidence breakdowns.
+
+\begin{table}[!t]
+\centering
+\caption{Skew Flags Among Assessable Rows ($n = 3{,}493$)}
+\label{tab:skew-flags}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Threshold} & \textbf{Rows} & \textbf{\%} \\
+\hline
+$\ge 3\times$ & 2,033 & 58.2 \\
+\hline
+$\ge 5\times$ & 1,223 & 35.0 \\
+\hline
+$\ge 10\times$ & 677 & 19.4 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\centering
+\caption{PharmGKB Evidence Levels (All 3,834 Rows) and ClinVar Stars (1,850 Matched Rows)}
+\label{tab:evidence}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r||l|r|}
+\hline
+\textbf{PGKb Level} & \textbf{Rows} & \textbf{Tier} & \textbf{Stars} & \textbf{Rows} \\
+\hline
+Level 3  & 3,476 & Low  & 0 & 237 \\
+\hline
+Level 4  &   175 & Low  & 1 & 276 \\
+\hline
+Level 1A &   141 & High & 2 & 937 \\
+\hline
+Level 2A &    19 & High & 3 & 374 \\
+\hline
+Level 2B &    17 & High & 4 &  26 \\
+\hline
+Level 1B &     6 & High &   &     \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Robustness and Statistical Sensitivity}
+% ============================================================================
+
+\subsection{Baseline Association and Assessability Exclusions}
+
+Cross-tabulating evidence tier against the $5\times$ skew flag reveals:
+\begin{itemize}
+    \item \textbf{High evidence:} 45 of 77 rows are high-skew (\textbf{58.4\%}).
+    \item \textbf{Low evidence:} 1,178 of 3,416 rows are high-skew (\textbf{34.5\%}).
+    \item \textbf{Fisher's exact test:} $\text{Odds Ratio} = 2.67$, $p = 2.85 \times 10^{-5}$ (rsID-level: $\text{OR} = 2.97$, $p = 2.20 \times 10^{-4}$).
+\end{itemize}
+Importantly, this test covers only assessable rows, which excludes 106 of 183 high-evidence rows (\textbf{57.9\%}) because $\max(\text{AF}) < 1\%$, compared to only \textbf{6.4\%} of low-evidence rows (235 of 3,651; Table~\ref{tab:groupx-exclusion}).
+The baseline comparison therefore evaluates only the common, assessable minority of high-evidence variants against nearly the entirety of the low-evidence tier.
+
+\begin{table}[!t]
+\centering
+\caption{Group X Exclusion Asymmetry in Baseline Test}
+\label{tab:groupx-exclusion}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Evidence Tier} & \textbf{Total} & \textbf{Assessable} & \textbf{Group X} & \textbf{\% Excluded} \\
+\hline
+High evidence &   183 &    77 & 106 & \textbf{57.9\%} \\
+\hline
+Low evidence  & 3,651 & 3,416 & 235 &  \textbf{6.4\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Absolute Allele Frequency Difference ($\Delta\text{AF}$)}
+
+Because ratio metrics can be susceptible to small-denominator inflation, we audited the distribution of absolute allele frequency differences:
+$\Delta\text{AF} = \max(\text{AF}) - \min(\text{AF})$.
+As reported in Table~\ref{tab:delta-af}, Group~2 variants exhibit a median $\Delta\text{AF}$ of \textbf{0.2714} (IQR: 0.1238--0.4128, max 0.8053), which is nearly identical to Group~4's median of \textbf{0.2439} ($< 5\times$ skew, low evidence).
+These absolute spreads are consistent with genuine frequency divergence.
+Group~1's median $\Delta\text{AF}$ (0.1243) is relatively low because its 25th percentile is 0.0219; it contains rare variants passing the ratio test on modest absolute differences.
+Furthermore, elevated $\Delta\text{AF}$ in a ratio-selected group is partly expected by construction.
+
+Importantly, the $5\times$ ratio criterion correlates negatively with maximum allele frequency ($r = -0.369$; median $\max(\text{AF})$ is 0.298 in high-skew rows versus 0.458 in Group~4), meaning that a ratio threshold partly selects for variants with lower overall carrier frequencies.
+To avoid discarding clinically relevant common variants with moderate disparities, future iterations could evaluate dual ratio and absolute $\Delta\text{AF}$ thresholds rather than treating low-skew variants as an unprioritized baseline.
+
+\begin{table}[!t]
+\centering
+\caption{Absolute Frequency Difference ($\Delta\text{AF}$) Quartiles by Group}
+\label{tab:delta-af}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Group} & \textbf{25\%} & \textbf{50\% (Median)} & \textbf{75\%} & \textbf{Max} \\
+\hline
+\textcolor{group1}{Grp~1} & 0.0219 & 0.1243 & 0.5362 & 0.8053 \\
+\hline
+\textcolor{group2}{Grp~2} & 0.1238 & \textbf{0.2714} & 0.4128 & 0.8053 \\
+\hline
+\textcolor{group3}{Grp~3} & 0.1216 & 0.1883 & 0.2282 & 0.7132 \\
+\hline
+\textcolor{group4}{Grp~4} & 0.1637 & \textbf{0.2439} & 0.3429 & 0.7097 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Allele Count Fragility and Detection Floor}
+
+Across all 1,223 high-skew rows:
+\begin{itemize}
+    \item Median AC in the lowest population is \textbf{1,048 copies}.
+    \item 81.4\% (996 rows) retain $>10$ copies; 70.2\% (858 rows) retain $>100$ copies.
+    \item Only 23 rows exhibit an extreme ratio ($>1{,}000\times$) supported by $\le 10$ copies.
+\end{itemize}
+Evaluating each population's detection floor ($1/\text{AN}$), only 189 high-skew rows (15.5\%) have a minimum frequency within $5\times$ of the limit of detection.
+Computing a conservative ratio using Wilson score 95\% confidence intervals:
+\begin{equation}
+\text{ratio}_{\text{conservative}} = \frac{\text{Wilson\_Lower}(\max\text{AF})}{\text{Wilson\_Upper}(\min\text{AF})}
+\end{equation}
+\textbf{74.1\% (906 of 1,223)} of high-skew rows maintain $\text{ratio}_{\text{conservative}} \ge 5\times$ (median conservative ratio: 8.2).
+
+\subsection{Equal-Sample-Size Downsampling}
+
+Because gnomAD sample sizes vary across populations (median AN: NFE = 875,590 vs.\ EAS = 35,185), we performed binomial downsampling to a uniform sample size of $\text{AN} = 30{,}000$ across 200 replicates (seed 20261025).
+Of the 1,223 high-skew rows, \textbf{788 (64.4\%)} remained high-skew in $\ge 95\%$ of replicates, while 435 calls were lost.
+Zeros produced by downsampling are treated as censored rather than as absence, since a frequency of $2 \times 10^{-5}$ rounds to zero copies at $\text{AN} = 30{,}000$ and would otherwise manufacture spurious high-skew calls.
+
+\subsection{Sensitivity Arms Ladder}
+
+Table~\ref{tab:sensitivity-ladder} traces Group~2 prevalence across analytical filters.
+Because filters apply only to high-skew rows, numerator and denominator shrink asymmetrically; these percentages should therefore be interpreted as conditional survivorship rather than directly comparable population shares.
+Table~\ref{tab:sensitivity} provides raw classification counts across skew thresholds.
+
+\begin{table}[!t]
+\centering
+\caption{Sensitivity Ladder of Group 2 Prevalence}
+\label{tab:sensitivity-ladder}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Analytical Arm} & \textbf{Total Rows} & \textbf{Grp 2 Rows} & \textbf{\% Grp 2} \\
+\hline
+Primary (as published) & 3,834 & 1,178 & 30.7 \\
+\hline
+Excluding highest-AC fallback & 3,490 & 1,039 & 29.8 \\
+\hline
+Requiring AC $> 10$ in min pop & 3,607 &   965 & 26.8 \\
+\hline
+Requiring CI-based ratio $\ge 5\times$ & 3,517 &   866 & 24.6 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\centering
+\caption{Classification Distribution Across Skew Thresholds}
+\label{tab:sensitivity}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Group} & \textbf{3$\times$} & \textbf{5$\times$} & \textbf{10$\times$} \\
+\hline
+Grp~1 & 66   & 45   & 22   \\
+\hline
+Grp~2 & 1,967 & 1,178 & 655  \\
+\hline
+Grp~3 & 11    & 32   & 55   \\
+\hline
+Grp~4 & 1,449 & 2,238 & 2,761 \\
+\hline
+Grp~X & 341  & 341  & 341  \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Audit of Study Clustering}
+
+An audit of study clustering confirms that Group~2's findings are not driven by a handful of prolific studies: the 775 Group~2 rsIDs rest on 2,748 distinct PMIDs, with the top 10 PMIDs accounting for only 3.3\% of total rsID--PMID links.
+The largest single study contributes 31 rsIDs (4.0\% of Group~2), concentrated in the \textit{PIK3R2} locus.
+It should be noted that \textit{PIK3R2}, \textit{TANC1}, and \textit{ZNF385D} represent GWAS-derived loci linked to treatment outcomes rather than traditional candidate pharmacogenes.
+
+% ============================================================================
+\section{Evidence Ancestry and Confounder Control}
+% ============================================================================
+
+\subsection{Literature Ancestry Mapping and Strata Breakdown}
+
+To investigate ancestral coverage in the literature, we joined 20,480 annotations from PharmGKB's \texttt{study\_parameters.tsv} to 2,445 rsIDs through \texttt{annotation\_resolution\_v3.csv}.
+Biogeographical labels were mapped explicitly to gnomAD primary populations: European $\to$ NFE; East Asian $\to$ EAS; African American/Afro-Caribbean and Sub-Saharan African $\to$ AFR; Central/South Asian $\to$ SAS; Latino and American $\to$ AMR.
+Near Eastern and Oceanian labels were left unmapped because neither corresponds directly to one of the five primary populations (Near Eastern corresponds to gnomAD MID, which is excluded from primary skew calculations).
+
+Across all 1,660 rsIDs with usable frequency profiles and $\ge 1$ mapped cohort, 46.0\% have at least one published cohort of European ancestry (NFE), 33.2\% East Asian (EAS), 10.8\% African (AFR), 5.6\% Central/South Asian (SAS), and 4.5\% Admixed American/Latino (AMR).
+These values represent the share of rsIDs with at least one cohort of that ancestry, not a participant headcount.
+
+\subsubsection{Binary Peak Exclusion vs.\ Continuous Coverage}
+Under a binary metric, a variant is classified as mismatched if the single ancestral group with the highest allele frequency (``peak'' population) was never studied.
+However, for variants with low skew or near-identical frequencies across lineages, this binary criterion is hypersensitive to trivial differences: a variant at 28\% in EAS and 27\% in NFE is not meaningfully unstudied if only NFE cohorts exist.
+To overcome this limitation, we define a continuous \emph{coverage ratio}:
+\begin{equation}
+\text{coverage\_ratio} = \frac{\max(\text{AF among studied populations})}{\text{peak AF}}
+\end{equation}
+A variant is considered adequately covered if $\text{coverage\_ratio} \ge 0.50$ (i.e., at least one studied population carries $\ge 50\%$ of the maximum allele frequency), and uncovered if $\text{coverage\_ratio} < 0.50$.
+
+Table~\ref{tab:ancestry-strata} presents both binary and continuous coverage metrics across the four strata.
+In Group~2 (high skew, low evidence), 45.4\% of rsIDs exclude their peak population under the binary definition, and 21.8\% remain uncovered under the 50\% frequency coverage threshold (median coverage ratio: 1.000).
+In contrast, in Group~4 (low skew, low evidence), binary mismatch is 65.7\%, but under the continuous coverage metric, under-coverage falls dramatically to only \textbf{13.0\%} (median coverage ratio: 0.984).
+This confirms that Group~4's high binary mismatch rate was driven by near-ties between populations rather than true ancestral neglect.
+
+Furthermore, ancestry coverage is not missing at random across strata: only \textbf{531 of 762 Group~2 rsIDs (69.7\%)} possess usable ancestry labels, compared to 90.0\% in Group~1 (27 of 30), 100\% in Group~3 (19 of 19), and 75.7\% in Group~4 (1,083 of 1,431).
+
+\begin{table}[!t]
+\centering
+\caption{Cohort Ancestry Concordance and Coverage by Stratum}
+\label{tab:ancestry-strata}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Stratum} & \textbf{rsIDs} & \textbf{Binary Mis.} & \textbf{Med.\ Ratio} & \textbf{Uncov.\ $<50\%$} \\
+\hline
+High Skew / High Ev. (Grp 1) &   27 &   3.7\% & 1.000 &  3.7\% \\
+\hline
+High Skew / Low Ev. (Grp 2)  &  531 &  45.4\% & 1.000 & 21.8\% \\
+\hline
+Low Skew / High Ev. (Grp 3)  &   19 &  31.6\% & 1.000 &  5.3\% \\
+\hline
+Low Skew / Low Ev. (Grp 4)   & 1083 &  65.7\% & 0.984 & 13.0\% \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Confounding by Publication Volume}
+
+The apparent difference in mismatch rate between Group~1 (3.7\%) and Group~2 (45.4\%) is heavily confounded by the number of published cohorts per variant.
+As shown in Table~\ref{tab:cohort-confound}, the mismatch rate falls monotonically from \textbf{69.5\% for single-cohort variants} to \textbf{20.2\% for variants with $>30$ cohorts}.
+Group~1 variants have a median of \textbf{32 cohorts}, whereas Group~2 variants have a median of only \textbf{3 cohorts} (Group~4: 3 cohorts).
+A variant studied in 32 cohorts has multiple opportunities to sample non-European groups by chance alone, whereas a variant studied in 3 cohorts almost inevitably reflects only the dominant literature marginals (NFE and EAS).
+
+\begin{table}[!t]
+\centering
+\caption{Mismatch Rate Monotonically Decreases with Cohort Count}
+\label{tab:cohort-confound}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Cohort Bin} & \textbf{rsIDs} & \textbf{\% Mismatch (Excluding Peak)} \\
+\hline
+1 cohort    & 462 & 69.5\% \\
+\hline
+2 cohorts   & 267 & 66.3\% \\
+\hline
+3--5 cohorts & 419 & 62.8\% \\
+\hline
+6--10 cohorts & 203 & 52.7\% \\
+\hline
+11--30 cohorts & 220 & 33.6\% \\
+\hline
+$> 30$ cohorts &  89 & \textbf{20.2\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Permutation Null Model and Weighted Definitions}
+
+To formalize this, a permutation null model (1,000 draws) evaluated expected mismatch under literature marginals.
+In the null simulation, marginals are defined at the rsID level (the share of rsIDs with $\ge 1$ published cohort of that ancestry).
+Each rsID is collapsed to its set of distinct mapped populations, and $k$ populations (where $k$ is the number of distinct mapped populations for that rsID) are drawn without replacement from the global marginals.
+Multi-ancestry cohorts are not preserved as atomic units, and ``Multiple groups'' labels are omitted as unmapped.
+By construction, a variant with published cohorts across all five populations ($k = 5$) can never mismatch under this null model.
+
+As reported in Table~\ref{tab:perm-null}, observed binary mismatch falls substantially below null expectation in both Group~1 (3.7\% observed vs.\ 32.2\% null, difference $-28.5\%$) and Group~2 (45.4\% observed vs.\ 64.4\% null, difference $-19.0\%$).
+Under the continuous coverage metric ($< 50\%$ peak AF), observed under-coverage is likewise substantially below null expectation in Group~1 (3.7\% observed vs.\ 27.2\% null, difference $-23.5\%$) and Group~2 (21.8\% observed vs.\ 39.3\% null, difference $-17.5\%$).
+In Group~4, observed and null rates are closely aligned under both metrics: 65.7\% vs.\ 67.6\% (difference: $-1.9\%$) for binary mismatch, and 13.0\% vs.\ 13.8\% (difference: $-0.8\%$) for coverage under-coverage.
+
+Two competing hypotheses account for this pattern.
+First, under \emph{discovery ascertainment}, variants may enter the literature and PharmGKB because initial genetic studies were conducted in populations where the allele was common enough to be detected.
+Second, under a \emph{validation bottleneck} (``cannot be validated where rare''), a variant that is rare in the predominantly studied populations (NFE and EAS) cannot accumulate sufficient carrier counts in typical clinical cohorts to achieve statistical significance in replication trials, thereby preventing it from advancing to Level~1A or~2A evidence.
+Both mechanisms predict that variants will be studied disproportionately where their allele frequencies are high relative to background literature marginals.
+
+Under a participant-weighted definition (requiring the peak population to comprise $\ge 10\%$ of total study participants), the mismatch rate shifts from 3.7\% to 22.2\% in Group~1, 45.4\% to 48.4\% in Group~2, 31.6\% to 68.4\% in Group~3, and 65.7\% to 69.0\% in Group~4.
+Because participant counts are missing or zero for many annotations, this weighted metric represents an upper bound on exclusion.
+
+Across all excluded rsIDs at any skew level, AFR is the peak ancestral group for 350 rsIDs, followed by SAS (210) and EAS (175).
+Separately, examining the dominant study population across high-skew rsIDs confirms that published cohorts remain predominantly European (NFE: 329 rsIDs) and East Asian (EAS: 168 rsIDs), while African cohorts are dominant in only 47 rsIDs.
+
+\begin{table*}[!t]
+\centering
+\caption{Permutation Null Comparison Across Binary Mismatch and Coverage Metrics (1,000 Draws)}
+\label{tab:perm-null}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|r|r|r|r||r|r|r|}
+\hline
+\multirow{2}{*}{\textbf{Stratum}} & \multirow{2}{*}{\textbf{rsIDs}} & \multicolumn{3}{c||}{\textbf{Binary Peak Exclusion (\%)}} & \multicolumn{3}{c|}{\textbf{Coverage Under-Coverage ($<50\%$) (\%)}} \\
+\cline{3-8}
+ & & \textbf{Observed} & \textbf{Null} & \textbf{Diff} & \textbf{Observed} & \textbf{Null} & \textbf{Diff} \\
+\hline
+Grp 1 (High Skew / High Ev.) &   27 &  3.7 & 32.2 & $-28.5$ &  3.7 & 27.2 & $-23.5$ \\
+\hline
+Grp 2 (High Skew / Low Ev.)  &  531 & 45.4 & 64.4 & $-19.0$ & 21.8 & 39.3 & $-17.5$ \\
+\hline
+Grp 3 (Low Skew / High Ev.)  &   19 & 31.6 & 30.9 &  $+0.7$ &  5.3 &  1.5 &  $+3.8$ \\
+\hline
+Grp 4 (Low Skew / Low Ev.)   & 1083 & 65.7 & 67.6 &  $-1.9$ & 13.0 & 13.8 &  $-0.8$ \\
+\hline
+\end{tabular}
+\end{table*}
+
+\subsection{Multivariable Logistic Regression and Clustered Inference}
+
+To evaluate whether frequency skew and evidence tier independently predict ancestry mismatch after controlling for study volume, we fitted multivariable logistic regression models across all 1,660 rsIDs with frequency profiles and $\ge 1$ mapped cohort (Table~\ref{tab:regression}).
+In addition, because variants within the same gene locus share frequency profiles and linkage disequilibrium (e.g., 13 \textit{PIK3R2} rsIDs entering from a single GWAS publication), treating individual rsIDs as independent samples introduces pseudo-replication.
+We therefore refitted all models with cluster-robust sandwich standard errors with standard small-sample corrections, clustered separately by gene locus (730 clusters) and by primary publication PMID (969 clusters).
+
+\subsubsection{Clustering Sensitivity of the Evidence-Tier Effect}
+In the binary peak-exclusion specification, high evidence appears protective against mismatch under unclustered estimation ($\text{OR} = 0.516$, 95\% CI [0.216, 1.234], $p = 0.137$).
+However, its statistical significance depends entirely on the clustering unit: when standard errors are clustered by gene locus (730 clusters), the confidence interval narrows to [0.269, 0.990] with $p = 0.047$; when clustered by primary publication PMID (969 clusters), the confidence interval widens to [0.237, 1.121] with $p = 0.095$.
+Because only 46 high-evidence variants exist in this regression sample and significance is unstable across clustering choices, no definitive conclusion is warranted either way regarding an independent evidence-tier effect.
+In contrast, published cohort count remains an exceptionally strong and robust predictor of literature coverage across all clustering structures ($\text{OR} = 0.487$, $p = 5.52 \times 10^{-17}$ under study clustering).
+
+\subsubsection{Metric Reversal: Binary vs.\ Frequency Coverage}
+Crucially, evaluating the continuous coverage outcome (studied population carries $< 50\%$ of peak AF) reveals a fundamental metric reversal for frequency skew:
+\begin{itemize}
+    \item Under \textbf{binary peak exclusion}, high skew predicts \emph{lower} mismatch ($\text{OR} = 0.400$, 95\% CI [0.308, 0.518], $p = 3.80 \times 10^{-12}$ under study clustering). As demonstrated in Section~\ref{sec:framework}, this is an artifact of near-ties: low-skew variants have closely balanced continental frequencies, so failing to sample their single highest population by chance triggers binary mismatch even when an almost identical population is represented.
+    \item Under \textbf{frequency coverage ($<50\%$ peak AF)}, high skew independently predicts \emph{substantially higher} under-coverage ($\text{OR} = 1.885$, 95\% CI [1.355, 2.620], $p = 1.64 \times 10^{-4}$ under study clustering). High-skew variants truly require diverse, multi-ethnic cohorts to capture their concentrated alleles, and are roughly 1.9 times more likely to have their peak lineage neglected in the literature.
+\end{itemize}
+Across both outcomes, cohort count consistently reduces under-coverage ($\text{OR} = 0.424$, 95\% CI [0.307, 0.587], $p = 2.15 \times 10^{-7}$ under study clustering), confirming that total publication volume remains the dominant structural determinant of ancestral representation.
+
+\begin{table*}[!t]
+\centering
+\caption{Multivariable Logistic Regression of Literature Mismatch and Continuous Coverage Under Clustered Standard Errors ($n = 1{,}660$)}
+\label{tab:regression}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|l|r|c|r|c|r|c|r|}
+\hline
+\multirow{2}{*}{\textbf{Outcome}} & \multirow{2}{*}{\textbf{Term}} & \multirow{2}{*}{\textbf{OR}} & \multicolumn{2}{c|}{\textbf{Naive (Unclustered)}} & \multicolumn{2}{c|}{\textbf{Locus Clustered (730 clusters)}} & \multicolumn{2}{c|}{\textbf{Study Clustered (969 clusters)}} \\
+\cline{4-9}
+ & & & \textbf{95\% CI} & \textbf{$p$-value} & \textbf{95\% CI} & \textbf{$p$-value} & \textbf{95\% CI} & \textbf{$p$-value} \\
+\hline
+\multirow{5}{*}{\shortstack[l]{\textbf{Binary:}\\Peak pop.\\excluded}}
+ & Intercept & 3.760 & [2.339, 6.043] & $4.48 \times 10^{-8}$ & [2.106, 6.714] & $7.54 \times 10^{-6}$ & [2.167, 6.523] & $2.45 \times 10^{-6}$ \\
+ & High Skew ($\ge 5\times$) & 0.400 & [0.321, 0.498] & $2.91 \times 10^{-16}$ & [0.305, 0.523] & $2.46 \times 10^{-11}$ & [0.308, 0.518] & $3.80 \times 10^{-12}$ \\
+ & High Evidence & 0.516 & [0.216, 1.234] & 0.137 & [0.269, 0.990] & 0.047 & [0.237, 1.121] & 0.095 \\
+ & $\log(\text{cohorts})$ & 0.487 & [0.415, 0.573] & $2.61 \times 10^{-18}$ & [0.398, 0.597] & $3.13 \times 10^{-12}$ & [0.412, 0.577] & $5.52 \times 10^{-17}$ \\
+ & $\log(\text{participants})$ & 1.073 & [0.988, 1.166] & 0.095 & [0.966, 1.192] & 0.186 & [0.981, 1.175] & 0.124 \\
+\hline
+\multirow{5}{*}{\shortstack[l]{\textbf{Coverage:}\\Studied AF\\$< 50\%$ peak}}
+ & Intercept & 0.335 & [0.192, 0.587] & $1.32 \times 10^{-4}$ & [0.178, 0.632] & $7.26 \times 10^{-4}$ & [0.152, 0.738] & $6.63 \times 10^{-3}$ \\
+ & High Skew ($\ge 5\times$) & 1.885 & [1.427, 2.489] & $7.89 \times 10^{-6}$ & [1.323, 2.685] & $4.48 \times 10^{-4}$ & [1.355, 2.620] & $1.64 \times 10^{-4}$ \\
+ & High Evidence & 0.950 & [0.212, 4.251] & 0.947 & [0.348, 2.594] & 0.921 & [0.222, 4.064] & 0.945 \\
+ & $\log(\text{cohorts})$ & 0.424 & [0.334, 0.538] & $1.85 \times 10^{-12}$ & [0.323, 0.557] & $7.52 \times 10^{-10}$ & [0.307, 0.587] & $2.15 \times 10^{-7}$ \\
+ & $\log(\text{participants})$ & 1.058 & [0.965, 1.159] & 0.231 & [0.948, 1.180] & 0.315 & [0.903, 1.239] & 0.486 \\
+\hline
+\end{tabular}
+\end{table*}
+
+% ============================================================================
+\section{Drug-Phenotype Granularity and Variant Overlap}
+% ============================================================================
+
+Thirteen rsIDs appear simultaneously in both Group~1 and Group~2 with identical population frequency metrics, differing exclusively by drug or phenotype annotation.
+The clearest example is \texttt{rs9934438} (\textit{VKORC1}): this single variant is classified as Level~1B for warfarin (placing it in Group~1), but Level~3 for fluindione (placing it in Group~2).
+Other prominent overlap variants include \texttt{rs1127354} (\textit{ITPA}), \texttt{rs116855232} (\textit{NUDT15}), and \texttt{rs2231142} (\textit{ABCG2}).
+
+A second prominent example is \texttt{rs671} (\textit{ALDH2}), one of the most thoroughly investigated variants in East Asian populations.
+Its alcohol-flush and ethanol toxicity annotation sits in Group~1 (Level~2B), whereas its annotations for acetaldehyde, naltrexone, and heroin reside in Group~2 (Level~3).
+Notably, ClinVar maintains a 3-star record for \texttt{rs671} spanning both disease-susceptibility and drug-response conditions.
+
+In total, 63 Group~2 rows (comprising \textbf{5.3\% of Group~2}) and 13 rsIDs (1.7\% of Group~2 rsIDs) belong to variants that already possess high-evidence annotations for other drugs.
+For these loci, the apparent evidence gap reflects drug-specific curation granularity rather than an unstudied genetic locus.
+This bounds the potential confounding from multi-drug curation granularity at 5.3\% specifically within this single-rsID dataset.
+
+% ============================================================================
+\section{Case Studies from Group~2}
+% ============================================================================
+
+\textbf{\texttt{rs28898617}} (\textit{UGT1A} cluster / valproic acid):
+Disparity ratio $\sim$8,977$\times$; EAS AF = 4.56\%, NFE AF = 0.0005\%; Level~3; absent from ClinVar.
+Nearly exclusive to East Asian populations, this variant in the \textit{UGT1A} cluster could influence valproic acid glucuronidation.
+Because the \textit{UGT1A} genes share complex alternative first exons spliced to common downstream exons, PharmGKB annotates the entire locus cluster by design rather than as an unresolved gene assignment.
+
+\textbf{\texttt{rs12721646}} (\textit{CYP2B6} / nevirapine):
+Disparity ratio $\sim$7,830$\times$; AFR AF = 17.5\%, EAS AF = 0.002\%; Level~3; absent from ClinVar.
+\textit{CYP2B6} is essential for metabolizing nevirapine. Common in African populations but virtually absent in East Asians, it remains at Level~3 without clinical assertion in ClinVar.
+
+\textbf{\texttt{rs1799972}} (\textit{OPRM1} / opioids, addiction phenotypes):
+Disparity ratio $\sim$3,348$\times$; AFR AF = 22.4\%, EAS AF = 0.0067\%; Level~4 for opioids toxicity and Level~3 for cocaine, ethanol, and nicotine; absent from ClinVar.
+Encoding the $\mu$-opioid receptor, this variant impacts over one-fifth of African-descent individuals with low-tier evidence and no ClinVar entry.
+
+\textbf{\texttt{rs2066702}} (\textit{ADH1B} / naltrexone):
+Disparity ratio $\sim$2,154$\times$; AFR AF = 19.2\%, EAS AF = 0.009\%; Level~3; ClinVar 0-star.
+Involved in ethanol metabolism and naltrexone response, this variant is common in African ancestries but carries only Level~3 evidence.
+
+% ============================================================================
+\section{Allele Selection Methodology}
+% ============================================================================
+
+Allele selection followed a three-tier protocol: single ALT biallelic sites accounted for 70.6\% (2,707 rows), direct PharmGKB effect allele matching accounted for 20.4\% (783 rows), and highest-AC fallback accounted for 9.0\% (344 rows).
+Excluding all fallback rows preserves Group~2 prevalence at 29.8\%.
+
+% ============================================================================
+\section{Limitations}
+% ============================================================================
+
+\begin{enumerate}
+    \item \textbf{Confounding by study volume and clustering sensitivity.}
+    Literature ancestry mismatch is heavily confounded by published cohort count, and the apparent evidence-tier difference is not statistically separable from cohort count because high-evidence variants are scarce ($n = 46$), and cohort count directly encodes evidence-tier replication requirements. Furthermore, the statistical significance of the evidence-tier term depends on the clustering unit ($p = 0.047$ clustered by locus, $p = 0.095$ clustered by primary study, and $p = 0.137$ unclustered), precluding definitive claims about independent tier effects.
+    \item \textbf{Metric sensitivity and binary classification artifacts.}
+    The binary criterion (excluding the single peak population) produces artificial mismatch among low-skew variants where continental frequencies differ by small fractions. While the continuous coverage ratio ($\max(\text{AF}_{\text{studied}}) / \text{peak AF}$) resolves this near-tie artifact, the 50\% threshold remains an operational convention; continuous integration across alternate thresholds warrants exploration.
+    \item \textbf{Non-random ancestry missingness.}
+    Usable ancestry labels cover only 69.7\% of Group~2 rsIDs compared to 90.0\% in Group~1, indicating that literature missingness is not missing at random.
+    \item \textbf{ClinVar disease orientation.}
+    ClinVar is disease-oriented and matched by rsID, making it an imperfect metric for pharmacogenomics; clinical audits should prioritize CPIC guidelines and FDA labeling.
+    \item \textbf{Single-SNV scope.} Complex star alleles requiring haplotype phasing or copy-number calling (\textit{CYP2D6}, \textit{CYP2C19}) were omitted.
+    \item \textbf{gnomAD sampling depth asymmetry.} NFE allele numbers exceed EAS by $\sim$25-fold, affecting rare-variant detection floors, though downsampling confirmed 64.4\% call preservation.
+    \item \textbf{Clinical guideline distinction.} This audit highlights research priorities; it does not replace CPIC or DPWG clinical dosing guidelines.
+    \item \textbf{Absence of MAF-matched genomic baseline.} Group~2's 30.7\% share is not evaluated against a matched random background of non-pharmacogenomic variants with similar minor allele frequencies; whether pharmacogenomic loci exhibit unusual frequency skew relative to the rest of the genome remains uncharacterized.
+    \item \textbf{Descriptive stratification vs.\ candidate prioritization.} The audit provides descriptive broad-strata mapping rather than a ranked, fine-tuned candidate prioritization list for experimental validation.
+\end{enumerate}
+
+% ============================================================================
+\section{Conclusions}
+% ============================================================================
+
+This audit provides a reproducible methods and resource framework cross-referencing population frequency disparities against clinical evidence strength.
+Nearly one-third (30.7\%) of surveyed pharmacogenomic relationships exhibit high population frequency disparities ($\ge 5\times$) supported only by preliminary evidence.
+Robustness evaluations confirm that Group~2 variants possess substantial absolute frequency spreads ($\text{median } \Delta\text{AF} = 0.271$), withstand conservative confidence interval constraints, and persist under sample size normalization.
+Crucially, while cohort ancestry in the pharmacogenomic literature is strongly skewed toward European and East Asian cohorts, published cohort count is the primary determinant of literature coverage across all specifications.
+Furthermore, while binary peak exclusion creates an apparent artifact of higher mismatch among low-skew variants due to near-ties, continuous frequency coverage reveals that high-skew variants are indeed less adequately covered by the literature ($\text{OR} = 1.885$).
+These findings provide an empirical foundation for future pharmacogenomic curation, multi-ethnic clinical trials, and resource development.
+
+\section*{Reproducibility}
+
+Pipeline code and artifacts: \url{https://github.com/HemashreeJelli/BioDB}.
+Run \texttt{python scripts/run\_all.py} to reproduce.
+
+% ============================================================================
+% References
+% ============================================================================
+\balance
+\begin{thebibliography}{10}
+
+\bibitem{roden2019}
+D.~M. Roden, H.~L. McLeod, M.~V. Relling, \emph{et~al.},
+``Pharmacogenomics,''
+\emph{Lancet}, vol.~394, no.~10197, pp.~521--532, 2019.
+
+\bibitem{popejoy2016}
+A.~B. Popejoy and S.~M. Fullerton,
+``Genomics is failing on diversity,''
+\emph{Nature}, vol.~538, no.~7624, pp.~161--164, 2016.
+
+\bibitem{sirugo2019}
+G.~Sirugo, S.~M. Williams, and S.~A. Tishkoff,
+``The missing diversity in human genetic studies,''
+\emph{Cell}, vol.~177, no.~1, pp.~26--31, 2019.
+
+\bibitem{martin2019}
+A.~R. Martin, M.~Kanai, Y.~Kamatani, \emph{et~al.},
+``Clinical use of current polygenic risk scores may exacerbate health disparities,''
+\emph{Nat.\ Genet.}, vol.~51, no.~4, pp.~584--591, 2019.
+
+\bibitem{wojcik2019}
+G.~L. Wojcik, M.~Graff, K.~K. Nishimura, \emph{et~al.},
+``Genetic analyses of diverse populations improves discovery and fine-mapping in complex traits,''
+\emph{Nature}, vol.~570, no.~7762, pp.~514--518, 2019.
+
+\bibitem{gurdasani2019}
+D.~Gurdasani, I.~Barroso, E.~Zeggini, and M.~S. Sandhu,
+``Genomics of disease risk in globally diverse populations,''
+\emph{Nat.\ Rev.\ Genet.}, vol.~20, no.~9, pp.~520--535, 2019.
+
+\bibitem{mcinnes2021}
+G.~McInnes, A.~Lavertu, K.~Sangkuhl, T.~E. Klein, M.~Whirl-Carrillo, and R.~B. Altman,
+``Pharmacogenetics at scale: an analysis of the UK Biobank,''
+\emph{Clin.\ Pharmacol.\ Ther.}, vol.~109, no.~6, pp.~1528--1537, 2021.
+
+\bibitem{zhou2017}
+Y.~Zhou, M.~Ingelman-Sundberg, and V.~M. Lauschke,
+``Worldwide distribution of cytochrome P450 alleles: a meta-analysis of population-scale sequencing projects,''
+\emph{Clin.\ Pharmacol.\ Ther.}, vol.~102, no.~4, pp.~688--700, 2017.
+
+\bibitem{pharmgkb}
+M.~Whirl-Carrillo, R.~Huddart, L.~Gong, \emph{et~al.},
+``An evidence-based framework for evaluating pharmacogenomics knowledge for personalized medicine,''
+\emph{Clin.\ Pharmacol.\ Ther.}, vol.~110, no.~3, pp.~563--572, 2021.
+
+\bibitem{gnomad}
+S.~Chen, L.~C. Francioli, J.~K. Goodrich, \emph{et~al.},
+``A genomic mutational constraint map using variation in 76,156 human genomes,''
+\emph{Nature}, vol.~625, pp.~92--100, 2024.
+
+\bibitem{clinvar}
+M.~J. Landrum, J.~M. Lee, M.~Benson, \emph{et~al.},
+``ClinVar: improving access to variant interpretations and supporting evidence,''
+\emph{Nucleic Acids Res.}, vol.~46, no.~D1, pp.~D1062--D1067, 2018.
+
+\bibitem{cpic}
+K.~E. Caudle, T.~E. Klein, J.~M. Hoffman, \emph{et~al.},
+``Incorporation of pharmacogenomics into routine clinical practice: the CPIC guideline development process,''
+\emph{Curr.\ Drug Metab.}, vol.~15, no.~2, pp.~209--217, 2014.
+
+\end{thebibliography}
+
+\end{document}

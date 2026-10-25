@@ -1,0 +1,5 @@
+stratum,rsids,pct_binary_excludes_peak,median_coverage_ratio,pct_uncovered_50
+high skew / high evidence,27,3.7,1.0,3.7
+high skew / low evidence,531,45.4,1.0,21.8
+low skew / high evidence,19,31.6,1.0,5.3
+low skew / low evidence,1083,65.7,0.984,13.0
