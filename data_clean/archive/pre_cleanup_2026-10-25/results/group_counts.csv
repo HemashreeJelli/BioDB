@@ -1,0 +1,6 @@
+group_pgkb,rows_pgkb,pct_rows_pgkb,unique_rsids_pgkb,rows_clinvar_view
+Group 1: High Skew / High Evidence,45,1.2,30,116
+Group 2: High Skew / Low Evidence,1182,30.8,776,1111
+Group 3: Low Skew / High Evidence,32,0.8,19,136
+Group 4: Low Skew / Low Evidence,2238,58.4,1444,2134
+Group X: Not Assessable,337,8.8,263,337

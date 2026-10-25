@@ -1,7 +1,5 @@
 """
-04_process_clinvar.py
-=====================
-Step 3 of the pharmacogenomic pipeline.
+07_process_clinvar.py -- Step 3: ClinVar evidence
 
 Input  : variant_summary.txt.gz  (ClinVar bulk download, project root)
          data_clean/rsid_list.txt (2,604 rsIDs from PharmGKB core list)
@@ -110,8 +108,11 @@ def aggregate_rsid(grp):
     n_records       = len(grp)
     n_submitters    = int(grp["NumberSubmitters"].max())  # highest submitter count seen
     has_drug_resp   = grp["is_drug_response"].any()
-    has_pathogenic  = grp["ClinicalSignificance"].str.lower().str.contains(
-        "pathogenic", na=False).any()
+    # Drop the "Conflicting classifications of pathogenicity" phrase first,
+    # otherwise its word "pathogenicity" counts as a pathogenic call.
+    has_pathogenic  = (grp["ClinicalSignificance"].str.lower()
+        .str.replace("conflicting classifications of pathogenicity", "", regex=False)
+        .str.contains(r"\bpathogenic\b", na=False).any())
     has_conflict    = grp["ClinicalSignificance"].str.lower().str.contains(
         "conflicting", na=False).any()
     has_uncertain   = grp["ClinicalSignificance"].str.lower().str.contains(

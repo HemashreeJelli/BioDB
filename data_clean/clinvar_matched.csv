@@ -54,7 +54,7 @@ rs1042136,0,,,,,,False,False,False,False,,False
 rs1042151,0,,,,,,False,False,False,False,,False
 rs1042173,1,1.0,"criteria provided, single submitter",Likely benign,"criteria provided, single submitter",1.0,False,False,False,False,Likely benign,True
 rs10423928,0,,,,,,False,False,False,False,,False
-rs1042522,4,3.0,reviewed by expert panel,Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, single submitter; reviewed by expert panel",34.0,False,True,True,False,Benign,True
+rs1042522,4,3.0,reviewed by expert panel,Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, single submitter; reviewed by expert panel",34.0,False,False,True,False,Benign,True
 rs1042580,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
 rs1042597,0,,,,,,False,False,False,False,,False
 rs10426377,0,,,,,,False,False,False,False,,False
@@ -69,7 +69,7 @@ rs10432303,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"
 rs1043550,0,,,,,,False,False,False,False,,False
 rs1043620,0,,,,,,False,False,False,False,,False
 rs1044394,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",12.0,False,False,False,False,Benign,True
-rs1044396,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",13.0,False,True,True,False,Benign,True
+rs1044396,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",13.0,False,False,True,False,Benign,True
 rs1044397,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",13.0,False,False,False,False,Benign,True
 rs1044457,0,,,,,,False,False,False,False,,False
 rs1045280,0,,,,,,False,False,False,False,,False
@@ -308,7 +308,7 @@ rs1131882,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Li
 rs11322783,0,,,,,,False,False,False,False,,False
 rs1135989,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",10.0,False,False,False,False,Benign,True
 rs1136201,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",5.0,False,False,False,False,Benign,True
-rs113646094,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",7.0,False,True,True,False,Benign/Likely benign,True
+rs113646094,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",7.0,False,False,True,False,Benign/Likely benign,True
 rs113681054,0,,,,,,False,False,False,False,,False
 rs1137101,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",8.0,False,False,False,False,Benign,True
 rs1137617,3,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Pathogenic,"criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",20.0,False,True,False,False,Benign,True
@@ -317,7 +317,7 @@ rs113993958,3,3.0,reviewed by expert panel,Conflicting classifications of pathog
 rs113993959,2,4.0,practice guideline,Pathogenic; Uncertain significance,"criteria provided, single submitter; practice guideline",42.0,False,True,False,True,Pathogenic,True
 rs113993960,1,4.0,practice guideline,Pathogenic,practice guideline,88.0,False,True,False,False,Pathogenic,True
 rs114077267,0,,,,,,False,False,False,False,,False
-rs114202595,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",4.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs114202595,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",4.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs1142345,1,2.0,"criteria provided, multiple submitters, no conflicts",Likely benign; other,"criteria provided, multiple submitters, no conflicts",5.0,False,False,False,False,Likely benign; other,True
 rs1143623,1,0.0,no assertion criteria provided,association,no assertion criteria provided,1.0,False,False,False,False,association,True
 rs1143627,1,0.0,no assertion criteria provided,risk factor,no assertion criteria provided,1.0,False,False,False,False,risk factor,True
@@ -336,7 +336,7 @@ rs11545076,0,,,,,,False,False,False,False,,False
 rs11545077,0,,,,,,False,False,False,False,,False
 rs11545078,0,,,,,,False,False,False,False,,False
 rs115457081,0,,,,,,False,False,False,False,,False
-rs11549465,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",4.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs11549465,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",4.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs11552708,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",4.0,False,False,False,False,Benign/Likely benign,True
 rs11553441,0,,,,,,False,False,False,False,,False
 rs115545701,2,3.0,reviewed by expert panel,Likely benign; drug response,"criteria provided, single submitter; reviewed by expert panel",25.0,True,False,False,False,drug response,True
@@ -424,7 +424,7 @@ rs11940694,0,,,,,,False,False,False,False,,False
 rs11942466,0,,,,,,False,False,False,False,,False
 rs11947402,0,,,,,,False,False,False,False,,False
 rs11960832,0,,,,,,False,False,False,False,,False
-rs11971167,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",20.0,True,True,True,False,drug response,True
+rs11971167,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",20.0,True,False,True,False,drug response,True
 rs119774,0,,,,,,False,False,False,False,,False
 rs11983225,0,,,,,,False,False,False,False,,False
 rs11993031,0,,,,,,False,False,False,False,,False
@@ -516,7 +516,7 @@ rs12714145,0,,,,,,False,False,False,False,,False
 rs12718541,0,,,,,,False,False,False,False,,False
 rs12720066,0,,,,,,False,False,False,False,,False
 rs12720067,0,,,,,,False,False,False,False,,False
-rs12720441,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",11.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs12720441,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",11.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs12720462,0,,,,,,False,False,False,False,,False
 rs12721226,1,2.0,"criteria provided, multiple submitters, no conflicts",Likely benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Likely benign,True
 rs12721627,0,,,,,,False,False,False,False,,False
@@ -605,7 +605,7 @@ rs138809906,2,3.0,reviewed by expert panel,Likely pathogenic; Pathogenic,reviewe
 rs139887,0,,,,,,False,False,False,False,,False
 rs140039091,0,,,,,,False,False,False,False,,False
 rs1402467,0,,,,,,False,False,False,False,,False
-rs140410716,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs140410716,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs1409314,0,,,,,,False,False,False,False,,False
 rs140989814,0,,,,,,False,False,False,False,,False
 rs141033578,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,12.0,True,False,False,False,drug response,True
@@ -677,7 +677,7 @@ rs1569304898,3,2.0,"criteria provided, multiple submitters, no conflicts",Confli
 rs1570360,1,1.0,"criteria provided, single submitter",Benign,"criteria provided, single submitter",1.0,False,False,False,False,Benign,True
 rs1594160,0,,,,,,False,False,False,False,,False
 rs1603218569,0,,,,,,False,False,False,False,,False
-rs1603223180,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs1603223180,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs1611114,0,,,,,,False,False,False,False,,False
 rs1611115,2,0.0,no assertion criteria provided,association; not provided,no assertion criteria provided; no classification provided,1.0,False,False,False,False,association,True
 rs1611131,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",5.0,False,False,False,False,Benign,True
@@ -746,7 +746,7 @@ rs17583889,0,,,,,,False,False,False,False,,False
 rs17584499,0,,,,,,False,False,False,False,,False
 rs17587100,0,,,,,,False,False,False,False,,False
 rs1760217,0,,,,,,False,False,False,False,,False
-rs17602729,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",16.0,False,True,True,False,Conflicting classifications of pathogenicity; other,True
+rs17602729,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",16.0,False,False,True,False,Conflicting classifications of pathogenicity; other,True
 rs1760944,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
 rs17614642,0,,,,,,False,False,False,False,,False
 rs17626122,0,,,,,,False,False,False,False,,False
@@ -804,12 +804,12 @@ rs1799983,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"c
 rs1799998,2,1.0,"criteria provided, single submitter",Benign; association,"criteria provided, single submitter; no assertion criteria provided",1.0,False,False,False,False,Benign,True
 rs1800012,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; association,"criteria provided, multiple submitters, no conflicts; no assertion criteria provided",5.0,False,False,False,False,Benign/Likely benign,True
 rs1800035,0,,,,,,False,False,False,False,,False
-rs1800076,2,2.0,"criteria provided, multiple submitters, no conflicts",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",24.0,False,True,True,True,Uncertain significance,True
-rs1800100,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",29.0,False,True,True,False,Conflicting classifications of pathogenicity,True
-rs1800111,2,2.0,"criteria provided, multiple submitters, no conflicts",Conflicting classifications of pathogenicity; Likely benign,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",33.0,False,True,True,False,Likely benign,True
+rs1800076,2,2.0,"criteria provided, multiple submitters, no conflicts",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",24.0,False,False,True,True,Uncertain significance,True
+rs1800100,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",29.0,False,False,True,False,Conflicting classifications of pathogenicity,True
+rs1800111,2,2.0,"criteria provided, multiple submitters, no conflicts",Conflicting classifications of pathogenicity; Likely benign,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",33.0,False,False,True,False,Likely benign,True
 rs1800460,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; other,"criteria provided, multiple submitters, no conflicts",6.0,False,False,False,False,Benign/Likely benign; other,True
 rs1800469,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
-rs1800470,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",11.0,False,True,True,False,Benign,True
+rs1800470,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",11.0,False,False,True,False,Benign,True
 rs1800471,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Uncertain significance,"criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",4.0,False,False,False,True,Benign,True
 rs1800477,0,,,,,,False,False,False,False,,False
 rs1800497,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",5.0,False,False,False,False,Benign,True
@@ -833,7 +833,7 @@ rs1801019,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"c
 rs1801020,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",10.0,False,False,False,False,Benign/Likely benign,True
 rs1801058,0,,,,,,False,False,False,False,,False
 rs1801086,3,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; Likely pathogenic; Pathogenic,"criteria provided, conflicting classifications; reviewed by expert panel",15.0,False,True,True,False,Likely pathogenic,True
-rs1801131,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",24.0,False,True,True,False,Conflicting classifications of pathogenicity; other,True
+rs1801131,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",24.0,False,False,True,False,Conflicting classifications of pathogenicity; other,True
 rs1801133,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,24.0,True,False,False,False,drug response,True
 rs1801157,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
 rs1801158,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,12.0,True,False,False,False,drug response,True
@@ -844,7 +844,7 @@ rs1801252,1,2.0,"criteria provided, multiple submitters, no conflicts",Likely be
 rs1801253,1,0.0,no assertion criteria provided,Benign; association,no assertion criteria provided,3.0,False,False,False,False,Benign; association,True
 rs1801260,0,,,,,,False,False,False,False,,False
 rs1801262,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",6.0,False,False,False,False,Benign,True
-rs1801265,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",5.0,True,True,True,False,drug response,True
+rs1801265,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",5.0,True,False,True,False,drug response,True
 rs1801266,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,4.0,True,False,False,False,drug response,True
 rs1801268,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,3.0,True,False,False,False,drug response,True
 rs1801272,1,0.0,no assertion criteria provided,drug response,no assertion criteria provided,1.0,True,False,False,False,drug response,True
@@ -857,14 +857,14 @@ rs1801394,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Li
 rs1801516,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",28.0,False,False,False,False,Benign/Likely benign,True
 rs1801701,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",20.0,False,False,False,False,Benign/Likely benign,True
 rs1803155,0,,,,,,False,False,False,False,,False
-rs1803274,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs1803274,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs1804645,0,,,,,,False,False,False,False,,False
 rs1805010,1,1.0,"criteria provided, single submitter",Uncertain significance,"criteria provided, single submitter",2.0,False,False,False,True,Uncertain significance,True
 rs1805015,1,0.0,no classification provided,not provided,no classification provided,1.0,False,False,False,False,not provided,True
 rs1805034,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",8.0,False,False,False,False,Benign/Likely benign,True
 rs1805087,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",9.0,False,False,False,False,Benign,True
 rs1805094,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; Uncertain significance,"criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",12.0,False,False,False,True,Benign/Likely benign,True
-rs1805128,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other; risk factor,"criteria provided, conflicting classifications",22.0,False,True,True,False,Conflicting classifications of pathogenicity; other; risk factor,True
+rs1805128,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other; risk factor,"criteria provided, conflicting classifications",22.0,False,False,True,False,Conflicting classifications of pathogenicity; other; risk factor,True
 rs1806201,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",12.0,False,False,False,False,Benign/Likely benign,True
 rs181501757,0,,,,,,False,False,False,False,,False
 rs1816702,0,,,,,,False,False,False,False,,False
@@ -875,7 +875,7 @@ rs183701923,0,,,,,,False,False,False,False,,False
 rs184199168,0,,,,,,False,False,False,False,,False
 rs185462714,0,,,,,,False,False,False,False,,False
 rs186045772,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,13.0,True,False,False,False,drug response,True
-rs186089140,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs186089140,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs1861647,0,,,,,,False,False,False,False,,False
 rs1868089,0,,,,,,False,False,False,False,,False
 rs186983396,2,3.0,reviewed by expert panel,Uncertain significance,"criteria provided, multiple submitters, no conflicts; reviewed by expert panel",10.0,False,False,False,True,Uncertain significance,True
@@ -975,7 +975,7 @@ rs2058878,0,,,,,,False,False,False,False,,False
 rs2061051,0,,,,,,False,False,False,False,,False
 rs2066702,1,0.0,no assertion criteria provided,protective,no assertion criteria provided,1.0,False,False,False,False,protective,True
 rs2066713,0,,,,,,False,False,False,False,,False
-rs2066844,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; association,"criteria provided, conflicting classifications",16.0,False,True,True,False,Conflicting classifications of pathogenicity; association,True
+rs2066844,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; association,"criteria provided, conflicting classifications",16.0,False,False,True,False,Conflicting classifications of pathogenicity; association,True
 rs2069062,0,,,,,,False,False,False,False,,False
 rs2069502,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs2069514,0,,,,,,False,False,False,False,,False
@@ -1048,7 +1048,7 @@ rs2228171,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"c
 rs2228246,0,,,,,,False,False,False,False,,False
 rs2228478,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",7.0,False,False,False,False,Benign,True
 rs2228479,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",7.0,False,False,False,False,Benign,True
-rs2228570,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; no assertion criteria provided",15.0,False,True,True,True,Conflicting classifications of pathogenicity,True
+rs2228570,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; no assertion criteria provided",15.0,False,False,True,True,Conflicting classifications of pathogenicity,True
 rs2229046,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs2229109,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",4.0,False,False,False,False,Benign,True
 rs2229205,0,,,,,,False,False,False,False,,False
@@ -1156,7 +1156,7 @@ rs2284018,0,,,,,,False,False,False,False,,False
 rs2284220,0,,,,,,False,False,False,False,,False
 rs2284449,0,,,,,,False,False,False,False,,False
 rs2284922,0,,,,,,False,False,False,False,,False
-rs2285676,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs2285676,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs2288344,0,,,,,,False,False,False,False,,False
 rs2289105,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
 rs2289252,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
@@ -1213,7 +1213,7 @@ rs2337980,0,,,,,,False,False,False,False,,False
 rs2359612,2,3.0,reviewed by expert panel,Benign; drug response,"criteria provided, single submitter; reviewed by expert panel",3.0,True,False,False,False,drug response,True
 rs2366929,0,,,,,,False,False,False,False,,False
 rs2368564,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
-rs237025,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",6.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs237025,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",6.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs2372536,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",6.0,False,False,False,False,Benign,True
 rs2378676,0,,,,,,False,False,False,False,,False
 rs238406,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",11.0,False,False,False,False,Benign/Likely benign,True
@@ -1358,12 +1358,12 @@ rs2873804,0,,,,,,False,False,False,False,,False
 rs2884737,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,1.0,True,False,False,False,drug response,True
 rs2886059,0,,,,,,False,False,False,False,,False
 rs28898617,0,,,,,,False,False,False,False,,False
-rs28933389,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",7.0,False,True,True,False,Conflicting classifications of pathogenicity,True
-rs28933390,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",12.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs28933389,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",7.0,False,False,True,False,Conflicting classifications of pathogenicity,True
+rs28933390,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",12.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs28933396,2,3.0,reviewed by expert panel,Likely pathogenic; Pathogenic; drug response,reviewed by expert panel,13.0,True,True,False,False,Pathogenic; drug response,True
 rs28933397,1,3.0,reviewed by expert panel,Likely pathogenic; drug response,reviewed by expert panel,15.0,True,True,False,False,Likely pathogenic; drug response,True
 rs28935195,1,2.0,"criteria provided, multiple submitters, no conflicts",Pathogenic/Likely pathogenic,"criteria provided, multiple submitters, no conflicts",3.0,False,True,False,False,Pathogenic/Likely pathogenic,True
-rs28935490,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; other; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",29.0,False,True,True,False,Benign/Likely benign; other,True
+rs28935490,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; other; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",29.0,False,False,True,False,Benign/Likely benign; other,True
 rs2898950,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs2900478,0,,,,,,False,False,False,False,,False
 rs290487,0,,,,,,False,False,False,False,,False
@@ -1433,8 +1433,8 @@ rs3213619,1,0.0,no assertion criteria provided,drug response,no assertion criter
 rs3215400,0,,,,,,False,False,False,False,,False
 rs3217164,0,,,,,,False,False,False,False,,False
 rs3218592,1,1.0,"criteria provided, single submitter",Benign,"criteria provided, single submitter",2.0,False,False,False,False,Benign,True
-rs3219484,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",25.0,False,True,True,False,Benign/Likely benign,True
-rs3219489,3,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity; Likely benign,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",24.0,False,True,True,False,Benign,True
+rs3219484,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",25.0,False,False,True,False,Benign/Likely benign,True
+rs3219489,3,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity; Likely benign,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",24.0,False,False,True,False,Benign,True
 rs324023,0,,,,,,False,False,False,False,,False
 rs324026,0,,,,,,False,False,False,False,,False
 rs324029,0,,,,,,False,False,False,False,,False
@@ -1452,7 +1452,7 @@ rs34231037,1,2.0,"criteria provided, multiple submitters, no conflicts",Likely b
 rs34550074,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs34650714,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",5.0,False,False,False,False,Benign/Likely benign,True
 rs34834489,0,,,,,,False,False,False,False,,False
-rs34911792,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",23.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs34911792,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",23.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs34993780,1,2.0,"criteria provided, multiple submitters, no conflicts",Pathogenic/Likely pathogenic,"criteria provided, multiple submitters, no conflicts",16.0,False,True,False,False,Pathogenic/Likely pathogenic,True
 rs35068180,1,0.0,no assertion criteria provided,risk factor,no assertion criteria provided,1.0,False,False,False,False,risk factor,True
 rs35112940,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",4.0,False,False,False,False,Benign,True
@@ -1462,8 +1462,8 @@ rs351855,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"cr
 rs352046,0,,,,,,False,False,False,False,,False
 rs352139,0,,,,,,False,False,False,False,,False
 rs35303484,0,,,,,,False,False,False,False,,False
-rs35350960,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",15.0,False,True,True,False,Conflicting classifications of pathogenicity; other,True
-rs35516286,3,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; criteria provided, single submitter",20.0,False,True,True,True,Conflicting classifications of pathogenicity,True
+rs35350960,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Conflicting classifications of pathogenicity; other,"criteria provided, conflicting classifications",15.0,False,False,True,False,Conflicting classifications of pathogenicity; other,True
+rs35516286,3,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; Uncertain significance,"criteria provided, conflicting classifications; criteria provided, single submitter",20.0,False,False,True,True,Conflicting classifications of pathogenicity,True
 rs35592,0,,,,,,False,False,False,False,,False
 rs35599367,0,,,,,,False,False,False,False,,False
 rs35621,0,,,,,,False,False,False,False,,False
@@ -1485,7 +1485,7 @@ rs363225,0,,,,,,False,False,False,False,,False
 rs363226,0,,,,,,False,False,False,False,,False
 rs363341,0,,,,,,False,False,False,False,,False
 rs367398,0,,,,,,False,False,False,False,,False
-rs367619008,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",7.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs367619008,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",7.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs368146607,0,,,,,,False,False,False,False,,False
 rs368505753,1,3.0,reviewed by expert panel,Pathogenic; drug response,reviewed by expert panel,25.0,True,True,False,False,Pathogenic; drug response,True
 rs369103276,0,,,,,,False,False,False,False,,False
@@ -1520,7 +1520,7 @@ rs3745009,0,,,,,,False,False,False,False,,False
 rs374515279,0,,,,,,False,False,False,False,,False
 rs374527058,1,1.0,"criteria provided, single submitter",Uncertain significance,"criteria provided, single submitter",1.0,False,False,False,True,Uncertain significance,True
 rs3745274,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,4.0,True,False,False,False,drug response,True
-rs3746574,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs3746574,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs3748022,0,,,,,,False,False,False,False,,False
 rs374825099,0,,,,,,False,False,False,False,,False
 rs3749034,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
@@ -1584,8 +1584,8 @@ rs3800373,1,1.0,"criteria provided, single submitter",Benign,"criteria provided,
 rs3802279,0,,,,,,False,False,False,False,,False
 rs3802281,0,,,,,,False,False,False,False,,False
 rs3803300,0,,,,,,False,False,False,False,,False
-rs3804099,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity,no assertion criteria provided,2.0,False,True,True,False,Conflicting classifications of pathogenicity,True
-rs3804100,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity,no assertion criteria provided,2.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs3804099,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity,no assertion criteria provided,2.0,False,False,True,False,Conflicting classifications of pathogenicity,True
+rs3804100,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity,no assertion criteria provided,2.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs3805945,1,1.0,"criteria provided, single submitter",Benign,"criteria provided, single submitter",1.0,False,False,False,False,Benign,True
 rs3806596,1,0.0,no assertion criteria provided,other,no assertion criteria provided,1.0,False,False,False,False,other,True
 rs3806598,0,,,,,,False,False,False,False,,False
@@ -1649,7 +1649,7 @@ rs397508573,1,3.0,reviewed by expert panel,Pathogenic,reviewed by expert panel,8
 rs397508602,2,3.0,reviewed by expert panel,Pathogenic,"criteria provided, single submitter; reviewed by expert panel",4.0,False,True,False,False,Pathogenic,True
 rs397508759,2,3.0,reviewed by expert panel,Pathogenic; Pathogenic; drug response,reviewed by expert panel,10.0,True,True,False,False,Pathogenic; drug response,True
 rs397515870,2,2.0,"criteria provided, multiple submitters, no conflicts",Conflicting classifications of pathogenicity; Pathogenic/Likely pathogenic,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",10.0,False,True,True,False,Pathogenic/Likely pathogenic,True
-rs397515874,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs397515874,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs398123212,3,2.0,"criteria provided, multiple submitters, no conflicts",Likely pathogenic; Pathogenic; Pathogenic/Likely pathogenic,"criteria provided, multiple submitters, no conflicts; criteria provided, single submitter",4.0,False,True,False,False,Pathogenic,True
 rs398123217,1,2.0,"criteria provided, multiple submitters, no conflicts",Pathogenic,"criteria provided, multiple submitters, no conflicts",4.0,False,True,False,False,Pathogenic,True
 rs398123223,1,2.0,"criteria provided, multiple submitters, no conflicts",Pathogenic/Likely pathogenic,"criteria provided, multiple submitters, no conflicts",6.0,False,True,False,False,Pathogenic/Likely pathogenic,True
@@ -1660,7 +1660,7 @@ rs4072879,0,,,,,,False,False,False,False,,False
 rs4073,1,0.0,no assertion criteria provided,other,no assertion criteria provided,1.0,False,False,False,False,other,True
 rs4086116,0,,,,,,False,False,False,False,,False
 rs408626,0,,,,,,False,False,False,False,,False
-rs4124874,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",10.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs4124874,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",10.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs41269255,0,,,,,,False,False,False,False,,False
 rs41271330,1,0.0,no assertion criteria provided,Benign,no assertion criteria provided,1.0,False,False,False,False,Benign,True
 rs41273215,0,,,,,,False,False,False,False,,False
@@ -1674,7 +1674,7 @@ rs41412545,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"
 rs4141964,0,,,,,,False,False,False,False,,False
 rs4148155,0,,,,,,False,False,False,False,,False
 rs4148157,0,,,,,,False,False,False,False,,False
-rs4148323,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications",26.0,True,True,True,False,Conflicting classifications of pathogenicity; drug response,True
+rs4148323,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications",26.0,True,False,True,False,Conflicting classifications of pathogenicity; drug response,True
 rs4148324,1,0.0,no assertion criteria provided,Benign,no assertion criteria provided,1.0,False,False,False,False,Benign,True
 rs4148350,1,0.0,no assertion criteria provided,Uncertain significance,no assertion criteria provided,1.0,False,False,False,True,Uncertain significance,True
 rs4148386,0,,,,,,False,False,False,False,,False
@@ -1712,7 +1712,7 @@ rs428785,0,,,,,,False,False,False,False,,False
 rs4291,1,1.0,"criteria provided, single submitter",Benign,"criteria provided, single submitter",1.0,False,False,False,False,Benign,True
 rs4292,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",2.0,False,False,False,False,Benign,True
 rs4292394,1,0.0,no assertion criteria provided,drug response,no assertion criteria provided,1.0,True,False,False,False,drug response,True
-rs429358,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other; risk factor; no classification for the single variant,"criteria provided, conflicting classifications; no classification for the single variant",18.0,False,True,True,False,Conflicting classifications of pathogenicity; other; risk factor,True
+rs429358,2,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; other; risk factor; no classification for the single variant,"criteria provided, conflicting classifications; no classification for the single variant",18.0,False,False,True,False,Conflicting classifications of pathogenicity; other; risk factor,True
 rs430397,0,,,,,,False,False,False,False,,False
 rs4305746,0,,,,,,False,False,False,False,,False
 rs4329505,0,,,,,,False,False,False,False,,False
@@ -1836,7 +1836,7 @@ rs4864950,0,,,,,,False,False,False,False,,False
 rs4870061,0,,,,,,False,False,False,False,,False
 rs4877847,0,,,,,,False,False,False,False,,False
 rs4877900,0,,,,,,False,False,False,False,,False
-rs4880,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity; risk factor,no assertion criteria provided,2.0,False,True,True,False,Conflicting classifications of pathogenicity; risk factor,True
+rs4880,1,0.0,no assertion criteria provided,Conflicting classifications of pathogenicity; risk factor,no assertion criteria provided,2.0,False,False,True,False,Conflicting classifications of pathogenicity; risk factor,True
 rs4889606,0,,,,,,False,False,False,False,,False
 rs489693,0,,,,,,False,False,False,False,,False
 rs4902333,0,,,,,,False,False,False,False,,False
@@ -1897,7 +1897,7 @@ rs5275,1,0.0,no assertion criteria provided,other,no assertion criteria provided
 rs527580106,0,,,,,,False,False,False,False,,False
 rs528152707,0,,,,,,False,False,False,False,,False
 rs529520,0,,,,,,False,False,False,False,,False
-rs531738678,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs531738678,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs532545,0,,,,,,False,False,False,False,,False
 rs5326,0,,,,,,False,False,False,False,,False
 rs536577604,0,,,,,,False,False,False,False,,False
@@ -1974,11 +1974,11 @@ rs5918,1,3.0,reviewed by expert panel,Benign,reviewed by expert panel,10.0,False
 rs5925,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign/Likely benign,"criteria provided, multiple submitters, no conflicts",22.0,False,False,False,False,Benign/Likely benign,True
 rs594709,0,,,,,,False,False,False,False,,False
 rs59724122,0,,,,,,False,False,False,False,,False
-rs5985,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs5985,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",9.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs5993883,0,,,,,,False,False,False,False,,False
 rs60140950,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",4.0,False,False,False,False,Benign,True
 rs6021191,0,,,,,,False,False,False,False,,False
-rs6025,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",29.0,True,True,True,False,drug response,True
+rs6025,2,3.0,reviewed by expert panel,Conflicting classifications of pathogenicity; drug response,"criteria provided, conflicting classifications; reviewed by expert panel",29.0,True,False,True,False,drug response,True
 rs60282872,0,,,,,,False,False,False,False,,False
 rs6028945,0,,,,,,False,False,False,False,,False
 rs602950,0,,,,,,False,False,False,False,,False
@@ -2084,7 +2084,7 @@ rs6506569,0,,,,,,False,False,False,False,,False
 rs651630,0,,,,,,False,False,False,False,,False
 rs6517442,0,,,,,,False,False,False,False,,False
 rs652888,0,,,,,,False,False,False,False,,False
-rs6535454,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",12.0,False,True,True,False,Benign,True
+rs6535454,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",12.0,False,False,True,False,Benign,True
 rs6551665,0,,,,,,False,False,False,False,,False
 rs658903,0,,,,,,False,False,False,False,,False
 rs6600879,0,,,,,,False,False,False,False,,False
@@ -2199,7 +2199,7 @@ rs7248668,0,,,,,,False,False,False,False,,False
 rs7254579,0,,,,,,False,False,False,False,,False
 rs72547516,0,,,,,,False,False,False,False,,False
 rs72547527,0,,,,,,False,False,False,False,,False
-rs72547529,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs72547529,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",3.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs72549303,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,3.0,True,False,False,False,drug response,True
 rs72549306,1,3.0,reviewed by expert panel,drug response,reviewed by expert panel,1.0,True,False,False,False,drug response,True
 rs72549309,1,2.0,"criteria provided, multiple submitters, no conflicts",Pathogenic,"criteria provided, multiple submitters, no conflicts",6.0,False,True,False,False,Pathogenic,True
@@ -2237,7 +2237,7 @@ rs7349683,0,,,,,,False,False,False,False,,False
 rs735482,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs735668,0,,,,,,False,False,False,False,,False
 rs73748206,1,1.0,"criteria provided, single submitter",Benign,"criteria provided, single submitter",1.0,False,False,False,False,Benign,True
-rs738409,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; risk factor,"criteria provided, conflicting classifications",6.0,False,True,True,False,Conflicting classifications of pathogenicity; risk factor,True
+rs738409,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity; risk factor,"criteria provided, conflicting classifications",6.0,False,False,True,False,Conflicting classifications of pathogenicity; risk factor,True
 rs7387065,0,,,,,,False,False,False,False,,False
 rs739296,0,,,,,,False,False,False,False,,False
 rs740406,0,,,,,,False,False,False,False,,False
@@ -2280,7 +2280,7 @@ rs7557402,2,3.0,reviewed by expert panel,Likely benign; drug response,"criteria 
 rs756770,0,,,,,,False,False,False,False,,False
 rs7569963,0,,,,,,False,False,False,False,,False
 rs757081,0,,,,,,False,False,False,False,,False
-rs757110,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",12.0,False,True,True,False,Benign,True
+rs757110,2,2.0,"criteria provided, multiple submitters, no conflicts",Benign; Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications; criteria provided, multiple submitters, no conflicts",12.0,False,False,True,False,Benign,True
 rs7572857,0,,,,,,False,False,False,False,,False
 rs7574296,0,,,,,,False,False,False,False,,False
 rs7574865,1,0.0,no assertion criteria provided,risk factor,no assertion criteria provided,1.0,False,False,False,False,risk factor,True
@@ -2292,7 +2292,7 @@ rs758145522,0,,,,,,False,False,False,False,,False
 rs7582141,0,,,,,,False,False,False,False,,False
 rs7583431,0,,,,,,False,False,False,False,,False
 rs758479488,0,,,,,,False,False,False,False,,False
-rs7586110,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs7586110,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",2.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs758649719,0,,,,,,False,False,False,False,,False
 rs7588295,0,,,,,,False,False,False,False,,False
 rs75961395,2,4.0,practice guideline,Pathogenic,"criteria provided, multiple submitters, no conflicts; practice guideline",29.0,False,True,False,False,Pathogenic,True
@@ -2338,7 +2338,7 @@ rs77235035,0,,,,,,False,False,False,False,,False
 rs772964366,0,,,,,,False,False,False,False,,False
 rs773123,1,2.0,"criteria provided, multiple submitters, no conflicts",Benign,"criteria provided, multiple submitters, no conflicts",3.0,False,False,False,False,Benign,True
 rs7740004,0,,,,,,False,False,False,False,,False
-rs774072493,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",6.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs774072493,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",6.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs77409459,1,3.0,reviewed by expert panel,Pathogenic,reviewed by expert panel,17.0,False,True,False,False,Pathogenic,True
 rs774359,0,,,,,,False,False,False,False,,False
 rs7748401,0,,,,,,False,False,False,False,,False
@@ -2478,7 +2478,7 @@ rs881152,0,,,,,,False,False,False,False,,False
 rs8832,0,,,,,,False,False,False,False,,False
 rs885004,0,,,,,,False,False,False,False,,False
 rs885036,0,,,,,,False,False,False,False,,False
-rs886043595,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",5.0,False,True,True,False,Conflicting classifications of pathogenicity,True
+rs886043595,1,1.0,"criteria provided, conflicting classifications",Conflicting classifications of pathogenicity,"criteria provided, conflicting classifications",5.0,False,False,True,False,Conflicting classifications of pathogenicity,True
 rs887829,0,,,,,,False,False,False,False,,False
 rs889299,0,,,,,,False,False,False,False,,False
 rs889895,0,,,,,,False,False,False,False,,False

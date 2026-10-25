@@ -1,51 +1,51 @@
 group,drug,annotation_rows
-Group 1: High Skew / High Evidence,fluorouracil,7
+Group 1: High Skew / High Evidence,fluorouracil,9
 Group 1: High Skew / High Evidence,capecitabine,7
 Group 1: High Skew / High Evidence,warfarin,4
 Group 1: High Skew / High Evidence,acenocoumarol,2
+Group 1: High Skew / High Evidence,ivacaftor,2
+Group 1: High Skew / High Evidence,phenprocoumon,2
 Group 1: High Skew / High Evidence,tacrolimus,2
 Group 1: High Skew / High Evidence,hormonal contraceptives for systemic use,2
 Group 1: High Skew / High Evidence,peginterferon alfa-2b;ribavirin,2
-Group 1: High Skew / High Evidence,phenprocoumon,2
 Group 1: High Skew / High Evidence,rosuvastatin,1
-Group 1: High Skew / High Evidence,ethanol,1
-Group 2: High Skew / Low Evidence,cyclophosphamide;epirubicin;fluorouracil,28
-Group 2: High Skew / Low Evidence,warfarin,22
-Group 2: High Skew / Low Evidence,methotrexate,22
-Group 2: High Skew / Low Evidence,ethanol,20
-Group 2: High Skew / Low Evidence,nicotine,17
-Group 2: High Skew / Low Evidence,methadone,14
-Group 2: High Skew / Low Evidence,olanzapine,13
-Group 2: High Skew / Low Evidence,hydrochlorothiazide,13
-Group 2: High Skew / Low Evidence,carboplatin;gemcitabine,13
-Group 2: High Skew / Low Evidence,methylphenidate,12
-Group 3: Low Skew / High Evidence,fluorouracil,3
-Group 3: Low Skew / High Evidence,methotrexate,2
+Group 2: High Skew / Low Evidence,cyclophosphamide;epirubicin;fluorouracil,32
+Group 2: High Skew / Low Evidence,methotrexate,24
+Group 2: High Skew / Low Evidence,opioids,22
+Group 2: High Skew / Low Evidence,ethanol,22
+Group 2: High Skew / Low Evidence,warfarin,21
+Group 2: High Skew / Low Evidence,nicotine,19
+Group 2: High Skew / Low Evidence,tacrolimus,17
+Group 2: High Skew / Low Evidence,methadone,17
+Group 2: High Skew / Low Evidence,duloxetine,16
+Group 2: High Skew / Low Evidence,antipsychotics,15
+Group 3: Low Skew / High Evidence,warfarin,3
+Group 3: Low Skew / High Evidence,methotrexate,3
 Group 3: Low Skew / High Evidence,atorvastatin,2
-Group 3: Low Skew / High Evidence,etanercept,1
-Group 3: Low Skew / High Evidence,warfarin,1
-Group 3: Low Skew / High Evidence,salmeterol,1
-Group 3: Low Skew / High Evidence,Platinum compounds,1
 Group 3: Low Skew / High Evidence,efavirenz,1
 Group 3: Low Skew / High Evidence,fluvastatin,1
 Group 3: Low Skew / High Evidence,pravastatin,1
-Group 4: Low Skew / Low Evidence,methotrexate,59
-Group 4: Low Skew / Low Evidence,methadone,58
-Group 4: Low Skew / Low Evidence,opioids,56
-Group 4: Low Skew / Low Evidence,duloxetine,49
-Group 4: Low Skew / Low Evidence,Tumor necrosis factor alpha (TNF-alpha) inhibitors,49
-Group 4: Low Skew / Low Evidence,risperidone,48
-Group 4: Low Skew / Low Evidence,nicotine,43
-Group 4: Low Skew / Low Evidence,ethanol,42
-Group 4: Low Skew / Low Evidence,aspirin,41
-Group 4: Low Skew / Low Evidence,Platinum compounds,37
+Group 3: Low Skew / High Evidence,rosuvastatin,1
+Group 3: Low Skew / High Evidence,lovastatin,1
+Group 3: Low Skew / High Evidence,simvastatin,1
+Group 3: Low Skew / High Evidence,capecitabine,1
+Group 4: Low Skew / Low Evidence,methotrexate,56
+Group 4: Low Skew / Low Evidence,methadone,55
+Group 4: Low Skew / Low Evidence,opioids,46
+Group 4: Low Skew / Low Evidence,risperidone,44
+Group 4: Low Skew / Low Evidence,Tumor necrosis factor alpha (TNF-alpha) inhibitors,42
+Group 4: Low Skew / Low Evidence,nicotine,41
+Group 4: Low Skew / Low Evidence,ethanol,40
+Group 4: Low Skew / Low Evidence,aspirin,38
+Group 4: Low Skew / Low Evidence,duloxetine,37
+Group 4: Low Skew / Low Evidence,Platinum compounds,35
 Group X: Not Assessable,ivacaftor,43
 Group X: Not Assessable,desflurane;enflurane;halothane;isoflurane;methoxyflurane;sevoflurane;succinylcholine,38
 Group X: Not Assessable,fluorouracil,36
 Group X: Not Assessable,nicotine,18
-Group X: Not Assessable,acetaminophen,13
-Group X: Not Assessable,tapentadol,12
+Group X: Not Assessable,acetaminophen,14
+Group X: Not Assessable,tapentadol,13
 Group X: Not Assessable,succinylcholine,10
-Group X: Not Assessable,migalastat,9
 Group X: Not Assessable,elexacaftor / tezacaftor / ivacaftor,9
-Group X: Not Assessable,o-desmethyltramadol;tramadol,7
+Group X: Not Assessable,migalastat,9
+Group X: Not Assessable,o-desmethyltramadol;tramadol,8

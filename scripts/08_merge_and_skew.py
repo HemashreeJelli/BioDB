@@ -1,10 +1,8 @@
 """
-05_merge_and_skew.py
-====================
-Steps 4 & 5 of the pharmacogenomic pipeline.
+08_merge_and_skew.py -- Steps 4 & 5: merge and frequency skew
 
 Inputs:
-  data_clean/core_rows_usable_v3.csv       -- 4016 core PharmGKB relationships
+  data_clean/core_rows_usable_v3.csv       -- all 4,016 core rows with a usability column
   data_clean/annotation_resolution_v3.csv  -- per-annotation allele resolution
   data_clean/site_allele_frequencies.csv   -- gnomAD ALT-allele population counts
   data_clean/clinvar_matched.csv           -- ClinVar aggregated per rsID
@@ -14,7 +12,7 @@ Output:
   data_clean/sanity_checks.txt             -- All validation checks, printed and saved
 
 Design decisions (locked):
-  - Only 'usable' core rows (3834) carry forward through the merge.
+  - Only "usable" core rows (3,834) carry forward through the merge.
   - For multi-ALT rsIDs, frequency of the pharmacogenomically annotated allele
     is selected using effect_alleles_plus from annotation_resolution_v3.
     If the match is ambiguous, the highest-AC ALT allele is used and flagged.
@@ -23,13 +21,17 @@ Design decisions (locked):
     (too small or inconsistently available).
   - Minimum AN threshold: 1000 per population. Populations below this are
     masked (treated as missing) for that variant's skew computation.
-  - Zero AF: NOT treated as zero in ratio calculation.
-    If min_AF == 0 the ratio is left as NaN and zero_min_af_flag = True.
+  - Skew is measured on the minor allele: if ALT averages > 50% across the
+    eligible populations, 1 - ALT AF is used instead (skew_allele column).
+  - Zero AF: if min_AF == 0 the ratio is left as NaN, zero_min_af_flag = True,
+    and (when max_AF >= 1%) all skew flags are set, since the ratio is unbounded.
   - Minimum max_AF filter (secondary): 0.01 (1%). Variants with max_AF < 1%
     across all primary populations get skew_assessable = False.
   - Ratio thresholds flagged: 3x, 5x, 10x.
   - ClinVar and gnomAD joins are LEFT joins -- every usable PharmGKB row is kept.
 """
+
+from collections import Counter
 
 import pandas as pd
 import numpy as np
@@ -65,18 +67,26 @@ accepted_res = res[res["resolution_v3"].str.startswith("accepted", na=False)].co
 accepted_res = accepted_res.dropna(subset=["rsID", "effect_alleles_plus"])
 
 # Aggregate accepted effect alleles per rsID (take the most common one if multiple)
+ALT_ALLELES = (freq[freq["allele_type"] == "ALT"]
+               .groupby("rsID")["allele"].apply(set).to_dict())
+
+
 def pick_effect_allele(group):
-    """Return the single-letter effect allele most frequently cited per rsID."""
+    """Return the single-letter effect allele most frequently cited per rsID.
+
+    Ties are broken deterministically: prefer a letter that is a gnomAD ALT
+    allele for this rsID, then alphabetical order. (Without this, ties were
+    resolved in Python's random set order and results changed between runs.)
+    """
     alleles = group["effect_alleles_plus"].dropna()
     # Flatten multi-letter tokens e.g. 'AG' -> {'A','G'}
     letter_sets = alleles.apply(lambda x: set(str(x).upper().replace(" ", "")))
     flat = [l for s in letter_sets for l in s]
     if not flat:
         return None
-    # Most common single letter
-    from collections import Counter
     counts = Counter(flat)
-    return counts.most_common(1)[0][0]
+    alts = ALT_ALLELES.get(group.name, set())
+    return min(counts, key=lambda l: (-counts[l], l not in alts, l))
 
 rsid_effect_allele = (
     accepted_res.groupby("rsID")
@@ -146,12 +156,18 @@ for pop in PRIMARY_POPS:
 
 # ── Step 5: Calculate skew metrics across primary populations ────────────────
 print("\nCalculating skew metrics…")
-af_cols = [f"{p}_af" for p in PRIMARY_POPS]
-an_cols = [f"{p}_an" for p in PRIMARY_POPS]
 
 def compute_skew(row):
     afs = {pop: row[f"{pop}_af"] for pop in PRIMARY_POPS
            if pd.notna(row[f"{pop}_af"]) and row[f"{pop}_an"] >= MIN_AN}
+
+    # Measure skew on the minor allele. If ALT is the major allele on average,
+    # use 1 - ALT AF instead, so the result doesn't depend on which allele
+    # the reference genome happens to call ALT.
+    skew_allele = "ALT"
+    if afs and np.mean(list(afs.values())) > 0.5:
+        afs = {p: 1 - v for p, v in afs.items()}
+        skew_allele = "REF_or_other"
 
     n_pops_eligible = len(afs)
     if n_pops_eligible < 2:
@@ -193,16 +209,18 @@ def compute_skew(row):
         ratio = max_af / min_af
         zero_flag = False
 
+    # min_AF == 0 with max_AF >= 1% is an unbounded ratio: it passes every threshold.
     return pd.Series({
         "n_pops_eligible": n_pops_eligible,
+        "skew_allele": skew_allele,
         "max_AF": max_af, "min_AF": min_af,
         "max_pop": max_pop, "min_pop": min_pop,
         "absolute_AF_diff": abs_diff,
         "disparity_ratio": ratio,
         "zero_min_af_flag": zero_flag,
-        "skew_flag_3x":  (not zero_flag) and (ratio >= 3),
-        "skew_flag_5x":  (not zero_flag) and (ratio >= 5),
-        "skew_flag_10x": (not zero_flag) and (ratio >= 10),
+        "skew_flag_3x":  zero_flag or (ratio >= 3),
+        "skew_flag_5x":  zero_flag or (ratio >= 5),
+        "skew_flag_10x": zero_flag or (ratio >= 10),
         "skew_assessable": True,
         "skew_not_assessable_reason": None,
     })
@@ -219,7 +237,7 @@ freq_keep = (
     ["rsID", "variant_id", "allele", "allele_selection_method",
      "overall_ac", "overall_an", "overall_af"]
     + [f"{p}_{x}" for p in PRIMARY_POPS + ["FIN","MID"] for x in ["ac","an","af"]]
-    + ["n_pops_eligible", "max_AF", "min_AF", "max_pop", "min_pop",
+    + ["n_pops_eligible", "skew_allele", "max_AF", "min_AF", "max_pop", "min_pop",
        "absolute_AF_diff", "disparity_ratio", "zero_min_af_flag",
        "skew_flag_3x", "skew_flag_5x", "skew_flag_10x",
        "skew_assessable", "skew_not_assessable_reason"]
@@ -238,8 +256,8 @@ assert n_before == n_after, "ROW COUNT CHANGED after freq merge! Investigate."
 merged["in_gnomad"] = merged["variant_id"].notna()
 
 # Merge ClinVar
-clinvar_keep = [c for c in clin.columns if c not in ["rsID"] or c == "rsID"]
-merged = merged.merge(clin[clinvar_keep], on="rsID", how="left")
+
+merged = merged.merge(clin, on="rsID", how="left")
 n_after2 = len(merged)
 print(f"  Core rows after ClinVar merge: {n_after2:,}")
 assert n_before == n_after2, "ROW COUNT CHANGED after ClinVar merge! Investigate."

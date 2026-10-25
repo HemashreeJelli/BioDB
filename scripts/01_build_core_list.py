@@ -1,3 +1,13 @@
+"""
+01_build_core_list.py -- Step 1: PharmGKB core list
+
+Input : summaryAnnotations/summary_annotations.tsv
+Output: data_clean/core_variants.csv   (one row per rsID x gene x drug)
+        data_clean/rsid_list.txt       (unique rsIDs for the gnomAD and ClinVar steps)
+
+Keeps single-rsID annotations (no star alleles / haplotypes) that have a gene,
+drug and phenotype category. Duplicates keep the strongest evidence level.
+"""
 
 from pathlib import Path
 import pandas as pd
@@ -60,7 +70,11 @@ df = df.rename(
     }
 )
 
-# Deduplicate at rsID + gene + drug level
+# Deduplicate at rsID + gene + drug level, keeping the strongest
+# PharmGKB evidence level when the same relationship appears more than once.
+LEVEL_RANK = {"1A": 0, "1B": 1, "2A": 2, "2B": 3, "3": 4, "4": 5}
+df["_rank"] = df["pharmgkb_evidence_level"].str.strip().map(LEVEL_RANK).fillna(99)
+df = df.sort_values("_rank", kind="stable").drop(columns="_rank")
 df = df.drop_duplicates(
     subset=["rsID", "Gene", "Drug(s)"]
 ).copy()

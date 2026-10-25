@@ -1,0 +1,51 @@
+group,gene,unique_rsids
+Group 1: High Skew / High Evidence,DPYD,9
+Group 1: High Skew / High Evidence,VKORC1,4
+Group 1: High Skew / High Evidence,CFTR,3
+Group 1: High Skew / High Evidence,CYP3A4,2
+Group 1: High Skew / High Evidence,ITPA,2
+Group 1: High Skew / High Evidence,ADD1,1
+Group 1: High Skew / High Evidence,ABCG2,1
+Group 1: High Skew / High Evidence,CYP2B6,1
+Group 1: High Skew / High Evidence,CHRNA5,1
+Group 1: High Skew / High Evidence,CES1,1
+Group 2: High Skew / Low Evidence,OPRM1,14
+Group 2: High Skew / Low Evidence,PIK3R2,13
+Group 2: High Skew / Low Evidence,ABCB1,10
+Group 2: High Skew / Low Evidence,ABCG2,10
+Group 2: High Skew / Low Evidence,SLCO1B1,9
+Group 2: High Skew / Low Evidence,CYP2A6,8
+Group 2: High Skew / Low Evidence,VKORC1,8
+Group 2: High Skew / Low Evidence,TANC1,7
+Group 2: High Skew / Low Evidence,ABCC4,7
+Group 2: High Skew / Low Evidence,ZNF385D,7
+Group 3: Low Skew / High Evidence,IFNL3,2
+Group 3: Low Skew / High Evidence,VKORC1,2
+Group 3: Low Skew / High Evidence,ADRB2,1
+Group 3: Low Skew / High Evidence,CYP2B6,1
+Group 3: Low Skew / High Evidence,APOE,1
+Group 3: Low Skew / High Evidence,CYP4F2,1
+Group 3: Low Skew / High Evidence,DPYD,1
+Group 3: Low Skew / High Evidence,FCGR3A,1
+Group 3: Low Skew / High Evidence,ATIC,1
+Group 3: Low Skew / High Evidence,MTHFR,1
+Group 4: Low Skew / Low Evidence,OPRM1,28
+Group 4: Low Skew / Low Evidence,ANO2,18
+Group 4: Low Skew / Low Evidence,ABCB1,18
+Group 4: Low Skew / Low Evidence,DRD2,14
+Group 4: Low Skew / Low Evidence,UGT2B7,13
+Group 4: Low Skew / Low Evidence,VEGFA,12
+Group 4: Low Skew / Low Evidence,NR1I2,12
+Group 4: Low Skew / Low Evidence,CYP19A1,12
+Group 4: Low Skew / Low Evidence,CYP2B6,12
+Group 4: Low Skew / Low Evidence,OPRD1,11
+Group X: Not Assessable,CFTR,55
+Group X: Not Assessable,DPYD,39
+Group X: Not Assessable,RYR1,39
+Group X: Not Assessable,CYP2A6,17
+Group X: Not Assessable,GLA,9
+Group X: Not Assessable,BCHE,8
+Group X: Not Assessable,CYP2C9,8
+Group X: Not Assessable,PAH,7
+Group X: Not Assessable,SULT1A1,7
+Group X: Not Assessable,SULT1A3,6

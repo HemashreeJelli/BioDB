@@ -15,16 +15,16 @@ in_clinvar = False:             1,984 (51.7%)
 
 --- Allele Selection Method ---
   single_alt                               2,707
-  effect_allele_match                      720
-  highest_ac_fallback                      407
+  effect_allele_match                      783
+  highest_ac_fallback                      344
 
 --- Skew Assessability ---
-skew_assessable = True:         3,497
-skew_assessable = False:        337
+skew_assessable = True:         3,493
+skew_assessable = False:        341
 
 --- Not Assessable Reasons ---
-  nan                                                     3,497
-  max_AF 0.0000 < 0.01 threshold                          155
+  nan                                                     3,493
+  max_AF 0.0000 < 0.01 threshold                          154
   max_AF 0.0001 < 0.01 threshold                          51
   max_AF 0.0002 < 0.01 threshold                          20
   max_AF 0.0005 < 0.01 threshold                          14
@@ -32,27 +32,28 @@ skew_assessable = False:        337
   max_AF 0.0003 < 0.01 threshold                          7
   max_AF 0.0008 < 0.01 threshold                          6
   max_AF 0.0007 < 0.01 threshold                          6
+  max_AF 0.0027 < 0.01 threshold                          5
   max_AF 0.0017 < 0.01 threshold                          5
+  max_AF 0.0048 < 0.01 threshold                          4
   max_AF 0.0021 < 0.01 threshold                          4
   max_AF 0.0042 < 0.01 threshold                          4
-  max_AF 0.0048 < 0.01 threshold                          4
+  max_AF 0.0006 < 0.01 threshold                          3
+  max_AF 0.0064 < 0.01 threshold                          3
   max_AF 0.0073 < 0.01 threshold                          3
   max_AF 0.0031 < 0.01 threshold                          3
   max_AF 0.0016 < 0.01 threshold                          3
   max_AF 0.0022 < 0.01 threshold                          3
   max_AF 0.0039 < 0.01 threshold                          3
-  max_AF 0.0006 < 0.01 threshold                          3
-  max_AF 0.0064 < 0.01 threshold                          3
+  max_AF 0.0051 < 0.01 threshold                          2
+  max_AF 0.0009 < 0.01 threshold                          2
   max_AF 0.0024 < 0.01 threshold                          2
   max_AF 0.0049 < 0.01 threshold                          2
-  max_AF 0.0051 < 0.01 threshold                          2
   max_AF 0.0097 < 0.01 threshold                          2
-  max_AF 0.0009 < 0.01 threshold                          2
   max_AF 0.0019 < 0.01 threshold                          2
+  max_AF 0.0047 < 0.01 threshold                          1
   max_AF 0.0034 < 0.01 threshold                          1
   max_AF 0.0038 < 0.01 threshold                          1
   max_AF 0.0025 < 0.01 threshold                          1
-  max_AF 0.0047 < 0.01 threshold                          1
   max_AF 0.0028 < 0.01 threshold                          1
   max_AF 0.0076 < 0.01 threshold                          1
   max_AF 0.0013 < 0.01 threshold                          1
@@ -60,7 +61,6 @@ skew_assessable = False:        337
   max_AF 0.0096 < 0.01 threshold                          1
   max_AF 0.0100 < 0.01 threshold                          1
   max_AF 0.0056 < 0.01 threshold                          1
-  max_AF 0.0027 < 0.01 threshold                          1
   max_AF 0.0071 < 0.01 threshold                          1
   max_AF 0.0020 < 0.01 threshold                          1
   max_AF 0.0032 < 0.01 threshold                          1
@@ -69,11 +69,12 @@ skew_assessable = False:        337
   max_AF 0.0086 < 0.01 threshold                          1
   max_AF 0.0095 < 0.01 threshold                          1
   max_AF 0.0012 < 0.01 threshold                          1
+  max_AF 0.0058 < 0.01 threshold                          1
 
 --- Skew Flags (assessable rows only) ---
-  3x flag:  1,466  (41.9% of assessable)
-  5x flag:  913  (26.1% of assessable)
-  10x flag: 515  (14.7% of assessable)
+  3x flag:  2,033  (58.2% of assessable)
+  5x flag:  1,223  (35.0% of assessable)
+  10x flag: 677  (19.4% of assessable)
 
 --- Zero min_AF flags (where max_AF >= 1%) ---
   zero_min_af_flag = True: 370
@@ -87,25 +88,25 @@ skew_assessable = False:        337
 
 --- Top max_pop (population with highest AF) ---
 max_pop
-AFR    1079
-EAS    1009
-NFE     942
-SAS     460
-AMR     344
+NFE    1056
+AFR     966
+EAS     886
+SAS     606
+AMR     320
 
 --- Top min_pop (population with lowest AF) ---
 min_pop
-AFR    1299
-EAS    1225
-NFE     638
-SAS     389
-AMR     283
+AFR    1411
+EAS    1349
+NFE     523
+AMR     306
+SAS     245
 
 --- disparity_ratio distribution (assessable, non-zero-min) ---
-  n values:   3,424
-  min ratio:  1.039
-  median:     2.620
-  95th pct:   247.288
+  n values:   3,423
+  min ratio:  1.157
+  median:     3.348
+  95th pct:   290.364
   max ratio:  8976.993
 
 --- Top 10 highest-ratio variants (spot-check these) ---
@@ -131,9 +132,9 @@ clinvar_max_stars
 
 --- pharmgkb_evidence_level distribution ---
 pharmgkb_evidence_level
-3     3469
-4      191
-1A     138
-2A      16
-2B      15
-1B       5
+3     3476
+4      175
+1A     141
+2A      19
+2B      17
+1B       6

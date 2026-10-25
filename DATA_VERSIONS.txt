@@ -1,0 +1,9 @@
+Source data versions
+====================
+
+PharmGKB / ClinPGx summaryAnnotations   created 2026-10-05 (see summaryAnnotations/CREATED_*.txt)
+PharmGKB / ClinPGx variantAnnotations   created 2026-10-05 (see variantAnnotations/CREATED_*.txt)
+ClinVar variant_summary.txt.gz          downloaded ~2026-10-12 (file date; GRCh38 rows only)
+gnomAD                                  v4 joint (exomes + genomes), dataset "gnomad_r4", via GraphQL API
+
+Fill in the exact ClinVar release date if known.
